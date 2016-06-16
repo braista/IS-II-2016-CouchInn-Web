@@ -7,9 +7,6 @@ body {
     margin: 0;
     text-indent: 1%;
 }
-
-
-
 .okImg{
     width: 16px;
     height: 16px;
@@ -270,6 +267,7 @@ table a{
     font-weight: bold;
     border-bottom: 1px solid grey;
     margin: 0;
+    text-indent: 1%;
 }
 
 /*DETALLES DE PUBLICACION*/
@@ -410,6 +408,14 @@ table a{
 #okUpdate{
     width: 104%;
 }
+#alertUpdate{
+    overflow: hidden;
+    float: left;
+    width: 100%;
+    border: 1px solid black;
+    background-color: rgba(255, 165, 0, 0.31);
+    margin-bottom: 1%;
+}
 
 /*SER PREMIUM*/
 
@@ -464,6 +470,22 @@ table a{
     width: 100%;
 }
 
+.formInput select{
+    width: 100%;
+}
+
+.formInput textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+#formTextarea{
+    width: 100%;
+    height: 15%;
+    margin-bottom: 2%;
+}
+
 .backend_container{
 	float:left;
 	display: block;
@@ -499,7 +521,7 @@ table a{
 }
 
 #recoveryButton{
-        width: 21%;
+        width: 23%;
         margin: auto;
         margin-top: 2%;
 }
@@ -522,7 +544,7 @@ table a{
 
 #loginSubmit{
         margin: auto;
-        width: 45%;
+        width: 53%;
         margin-top: 5%;
 }
 
@@ -556,4 +578,37 @@ table a{
 #recoveryForm{
        width: 30%;
        margin: auto;
+}
+
+/* CREAR PUBLICACION DE COUCH*/
+
+#formFiles{
+    width: 100%;
+    height: 20%;
+}
+
+#couchSubmit{
+    margin: auto;
+    width: 20%;
+}
+
+.formError{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    position: absolute;
+}
+
+.formError:before{
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
 }

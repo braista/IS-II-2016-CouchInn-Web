@@ -104,7 +104,7 @@
                                         <label>Vencimiento:</label>
                                     </div>
                                     <div class="formInput">
-                                            <input type="text" name="expd" minlength="5" maxlength="5" placeholder="Fecha vencimiento que figura en la tarjeta">
+                                            <input type="text" name="expd" minlength="5" maxlength="5" placeholder="Ej: 10/05 (MM/AA)">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -112,7 +112,7 @@
                                         <label>Codigo de seguridad:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="scode" minlength="3" maxlength="4">
+                                        <input type="text" name="scode" minlength="3" maxlength="4" placeholder="Código que figura al dorso">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -120,7 +120,7 @@
                                         <label>Direccion:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="adress">
+                                        <input type="text" name="adress" placeholder="Dirección de facturación">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -128,7 +128,7 @@
                                         <label>Ciudad:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="city">
+                                        <input type="text" name="city" placeholder="Ciudad donde reside">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -136,7 +136,7 @@
                                         <label>Provincia:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="province">
+                                        <input type="text" name="province" placeholder="Provincia donde reside">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -144,9 +144,9 @@
                                         <label>Codigo postal:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="zcode" minlength="4" maxlength="5">
+                                        <input type="text" name="zcode" minlength="4" maxlength="5" placeholder="Su código postal">
                                     </div>
-                                </div>                                
+                                </div>
                             <input type="submit" id="button" value="Enviar">
                         </form>
                     </div>

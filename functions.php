@@ -51,6 +51,24 @@ function redirect($url) {
 		$usertype= $usertypeRow['idtipousuario'];
 		return $usertype;
 	}
+    
+    function getCouchTypeID($couchid) {
+		$link= connect();
+		$SQL= "SELECT idtipocouch FROM couchs WHERE idcouch='$couchid'";
+		$result= mysqli_query($link, $SQL);
+		$couchtypeRow= mysqli_fetch_array($result);
+		$couchtype= $couchtypeRow['idtipocouch'];
+		return $usertype;
+	}
+    
+    function getCouchType($typeID){
+        $link= connect();
+        $query= "SELECT nombre FROM tipocouchs WHERE idtipocouch='$typeID'";
+        $result= mysqli_query($link, $query);
+        $couchTypeRow= mysqli_fetch_array($result);
+        $couchType = $couchTypeRow['nombre'];
+        return $couchType;
+    }
 	
 	function getAuth() {
 		if (isset($_SESSION['user']))
@@ -95,7 +113,7 @@ function redirect($url) {
                                                 }else{
                                                         $okimg= false;
                                                 }                                                
-                                                echo'<tr>';
+                                                echo'<tr class="listItem">';
                                                 if($usertype == 1)
                                                         echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/couchinn.png" width=80px height=80px ></a></td> ';
                                                 else{
@@ -163,7 +181,7 @@ function redirect($url) {
                             <label class="bienvenido">Bienvenido '.$user.'</label><br>
                         </div>
                         <div id=texto2> 
-                            <a href="" class="fade" id="fadeButton"><span class="icon-clipboard"></span>Panel</a> <a class="separador"> | </a> 
+                            <a href="cpanel.php" class="fade" id="fadeButton"><span class="icon-clipboard"></span>Panel</a> <a class="separador"> | </a> 
                             <a href="logout.php" class="fade" id="fadeButton"><span class="icon-exit"></span>Salir</a>
                         </div>
                     ';

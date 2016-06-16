@@ -1,3 +1,28 @@
+function hide(id){
+    $('#' + id).hide();
+}
+
+function show(id){
+    $('#' + id).show();
+}
+
+function clear(id) {
+    input = $('#' + id);
+    clon = input.clone();
+    input.replaceWith(clon);
+}
+
+function hideAndClear(id){
+    clear(id);
+    hide(id);
+}
+
+function error(id){
+    $('#' + id).css('border', '3px solid rgba(188, 16, 16, 0.72)');
+}
+function noError(id){
+    $('#' + id).removeAttr('style');
+}
 function showError(option){
     switch(option){
         case 'noIdError':
@@ -10,8 +35,49 @@ function showError(option){
             break;
     }
 }
+
+function focus(id){
+    $('#' + id).focus();
+}
+
+function value(id){
+    return $('#' + id).val();
+}
+
 function formValidation(option){
     switch(option){
+        case "couch":
+            title= value("title1");
+            capacity= value("capacity");
+            location= value("location");
+            description= value("description");
+            img= value("img1");
+            if(title == "" || !(isNaN(title))){
+                alert("El campo titulo debe contener caracteres alfanumericos.");
+                focus("title1");
+                return false;
+            }
+            if(capacity == "" || isNaN(capacity)){
+                alert("El campo capacidad debe contener un valor válido.");
+                focus("capacity");
+                return false;
+            }
+            if(location == "" || !(isNaN(location))){
+                alert("El campo lugar debe contener un valor válido.");
+                focus("location");
+                return false;
+            }
+            if(description == "" || !(isNaN(description))){
+                alert("El campo descripción debe contener un valor válido.");
+                focus("description");
+                return false;
+            }
+            if(img == ""){
+                alert("El archivo debe ser una imágen válida.");
+                focus("img1");
+                return false;
+            }
+            break;
         case "search":
             tag = document.searcher.tag.value;
             if(tag == null || tag.length == 0){
@@ -82,8 +148,12 @@ function formValidation(option){
                 document.premium.owner.focus();
                 return false;
             }
-            else if(expd == null || expd.length == 0 || isNaN(expd)){
-                alert("El campo Fecha de caducacion es necesario y debe escribirse correctamente.");
+            else if(expd == null || expd.length == 0){
+                alert("El campo Vencimiento es necesario y debe escribirse correctamente.");
+                document.premium.expd.focus();
+                return false;
+            } else if(expd.charAt(3) != '/'){
+                alert("Escriba el vencimiento de la tarjeta correctamente. Ej: 10/05 (MM/AA)");
                 document.premium.expd.focus();
                 return false;
             }
@@ -113,8 +183,7 @@ function formValidation(option){
                 return false;
             }else
                 return true;
-            break;
-            
+            break;            
         case 'register':
                 lname= document.register.lname.value;
                 fname= document.register.fname.value;
@@ -141,8 +210,7 @@ function formValidation(option){
                 else{
                         return true;
                 }
-        break;   
-
+        break;
     }
 }
 
@@ -241,15 +309,20 @@ function passConfirm(){
         } else
                 document.register.pass.style.border="3px solid rgba(8, 165, 8, 0.63)";
 }
+function submitDesactivation(){
+    $('input[type="submit"]').css('background-color', 'darkgray');
+    $('input[type="submit"]').attr('disabled','disabled');  
+}
+
+function submitActivation(){
+    $('input[type="submit"]').css('background-color', 'rgba(150, 172, 60, 0.92)');
+    $('input[type="submit"]').removeAttr('disabled');  
+}
 
 function validatePasswords(){
         $('document').ready(function(){
                 pass= $('#pass');
-                rpass= $('#rpass');                
-                function submitDesactivation(){
-                        $('input[type="submit"]').css('background-color', 'darkgray');
-                        $('input[type="submit"]').attr('disabled','disabled');  
-                }                                                                        
+                rpass= $('#rpass');
                 
                 submitDesactivation();
                 function passCoincidence(){
@@ -263,8 +336,7 @@ function validatePasswords(){
                         if(pass1 == pass2){
                                 pass.css('border', '3px solid rgba(8, 165, 8, 0.63)');
                                 rpass.css('border', '3px solid rgba(8, 165, 8, 0.63)');
-                                $('input[type="submit"]').css('background-color', 'rgba(150, 172, 60, 0.92)');
-                                $('input[type="submit"]').removeAttr('disabled');
+                                submitActivation();
                         }
                         if(pass1.length == 0 && pass2.length == 0){
                                 pass.css('border', '');
@@ -279,4 +351,81 @@ function validatePasswords(){
                         passCoincidence();
                 });
         });
+}
+
+function validateInputFile(){
+    $('document').ready(function(){
+        img1= $('#img1');
+        img2= $('#img2');
+        img3= $('#img3');
+        img4= $('#img4');
+        img5= $('#img5');
+        
+        img1.change(function(){
+            if (img1.val() == ''){
+                hideAndClear('img2');
+                hideAndClear('img3');
+                hideAndClear('img4');
+                hideAndClear('img5');
+            }else
+                show('img2');
+        });
+        
+        img2.change(function(){
+            if (img2.val() == ''){
+                hideAndClear('img3');
+                hideAndClear('img4');
+                hideAndClear('img5');
+            }else
+                show('img3');
+        });
+        
+        img3.change(function(){
+            if (img3.val() == ''){
+                hideAndClear('img4');
+                hideAndClear('img5');
+            }else
+                show('img4');
+        });
+        
+        img4.change(function(){
+            if (img4.val() == ''){
+                hideAndClear('img5');
+            }else
+                show('img5');
+        });
+    });
+}
+
+function couchFormValidation(){
+    $('document').ready(function(){
+        title= $('#title1');
+        capacity= $('#capacity');
+        location= $('#location');
+        description= $('#description');
+        if(title.val() == "" || !(isNaN(title.val()))){
+            error('title1');
+            title.focus().after("<span class='formError'>Ingrese un título válido</span>");
+            return false;
+        }else if(capacity.val() == "" || isNaN(capacity.val())){
+            error('capacity');
+            capacity.focus().after("<span class='formError'>Ingrese una capacidad válida</span>");
+            return false;
+        }else if(location.val() == "" || !(isNaN(location.val())) ){
+            error('location');
+            location.focus().after("<span class='formError'>Ingrese una ubicación válida</span>");
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+        $("#title1, #capacity, #location").keyup(function(){
+            if( $(this).val() != "" ){
+                $(".formError").fadeOut();
+                noError('title1');
+                return false;
+            }
+        });
+    });
 }
