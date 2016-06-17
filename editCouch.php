@@ -48,7 +48,7 @@
                                     $query= "SELECT * FROM tipocouchs ORDER BY nombre";
                                     $result= mysqli_query($link, $query);
                                     //CONSULTA IMAGENES DE LA PUBLICAZAO
-                                    $query= "SELECT * FROM imagenes WHERE idcouch=$couchid";                                    
+                                    $query= "SELECT * FROM imagenes WHERE idcouch='$couchid' ORDER BY imagen ASC";                                    
                                     $imgResult= mysqli_query($link, $query);
                                     $imgamount= mysqli_num_rows($imgResult);
                                 }
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="formInput">
                                         <?php
-                                        if($row['habilitado'] == 1)
+                                        if($couchRow['habilitado'] == 1)
                                             echo '<input type="checkbox" name="enable" id="enable" checked>';
                                         else
                                             echo '<input type="checkbox" name="enable" id="enable">';
@@ -128,12 +128,18 @@
                                     <?php
                                         if($imgamount == 1){
                                             $imgRow = mysqli_fetch_array($imgResult);
-                                            
+                                            echo'<div id="imgEdit">';
                                             echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=50px height=50px ></a></td>';
                                             echo'<div id="editButton">';
                                             echo'<a href="editIMG.php?img='.$imgRow["idimagen"].'">Cambiar</a><br>';
                                             echo'</div>';
-                                        }else{
+                                            echo'</div>';
+                                            echo'<div id="imgEdit">';
+                                            echo'<div id="editButton">';
+                                            echo'<a href="newIMG.php?id='.$couchid.'">Agregar</a><br>';
+                                            echo'</div>';
+                                            echo'</div>';
+                                        }else if($imgamount == 5){
                                             while ($imgRow = mysqli_fetch_array($imgResult)) {
                                                 echo'<div id="imgEdit">';
                                                 echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=50px height=50px ></a></td>';
@@ -145,6 +151,23 @@
                                                 echo'</div>';
                                                 echo'</div>';
                                             }                                            
+                                        } else{
+                                            while ($imgRow = mysqli_fetch_array($imgResult)) {
+                                                echo'<div id="imgEdit">';
+                                                echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=50px height=50px ></a></td>';
+                                                echo'<div id="editButton">';
+                                                echo'<a href="editIMG.php?img='.$imgRow["idimagen"].'">Cambiar</a><br>';
+                                                echo'</div>';
+                                                echo'<div id="editButton">';
+                                                echo'<a href="deleteIMG.php?id='.$couchid.'&img='.$imgRow["idimagen"].'">Eliminar</a><br>';
+                                                echo'</div>';
+                                                echo'</div>';                                                
+                                            }
+                                            echo'<div id="imgEdit">';
+                                            echo'<div id="editButton">';
+                                            echo'<a href="newIMG.php?id='.$couchid.'">Agregar</a><br>';
+                                            echo'</div>';
+                                            echo'</div>';
                                         }
                                     ?>
 <!--                                    <div class="formInput">

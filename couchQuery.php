@@ -15,7 +15,7 @@
             $ownerid= $couchRow['idusuario'];
                         
             //CONSULTA IMG					
-            $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid";
+            $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid ORDER BY imagen ASC";
             $imgResult = mysqli_query($link, $SQL);
             $imgRow = mysqli_fetch_array($imgResult);
             $imgamount= mysqli_num_rows($imgResult);

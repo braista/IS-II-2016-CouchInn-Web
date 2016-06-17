@@ -80,7 +80,7 @@
                             while($row = mysqli_fetch_array($result)){
                                 $couchid= $row['idcouch'];
                                 $couchType= getCouchType($row['idtipocouch']);
-                                $query= "SELECT * FROM imagenes WHERE idcouch=$couchid";
+                                $query= "SELECT * FROM imagenes WHERE idcouch=$couchid ORDER BY idimagen ASC";
                                 $result2= mysqli_query($link, $query);
                                 if (mysqli_num_rows($result2) != 0){
                                     $imgRow= mysqli_fetch_array($result2);

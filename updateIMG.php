@@ -15,15 +15,18 @@
             //CORTE DEL NOMBRE
             $del1="/";
             $del2=".";
-            $total1= strpos($imgname, $del1);
-            $total2= strpos($imgname, $del2);
-            $imgname= substr($imgname,$total1+1,$total2-3);
+            $total1= strpos($imgname, $del1)+1;
+            $img= substr($imgname,$total1);
+            
+            $total2= strpos($img, $del2);
+            $img= substr($img,0, $total2);
             
             //PROCESO IMG            
             $imgtype= $_FILES["image"]["type"];
-            $img= $_FILES["image"]["tmp_name"];           
-            $path= $couchid."/".$imgname.".".getIMGType($imgtype);                        
-            @move_uploaded_file($img, "img/".$path);
+            $tmp= $_FILES["image"]["tmp_name"];
+            $path= $couchid."/".$img.".".getIMGType($imgtype);                       
+
+            @move_uploaded_file($tmp, "img/".$path);
             $query= "UPDATE imagenes SET imagen='$path' WHERE idimagen='$imgID'";
             mysqli_query($link, $query);
             redirectAfter("editCouch.php?id=$couchid", 1);            
