@@ -1,8 +1,13 @@
 <html>
     <head> 
-        <script type="text/javascript" src="/functions.js"></script>                       
-       	<link rel="stylesheet" href="CSS/main.css">               
+        <link rel="stylesheet" href="CSS/main.css">
+        <link rel="stylesheet" href="fonts/style.css">
+        <script type="text/javascript" src="/functions.js"></script>
         <script src="jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/slimbox2.js"></script>
+        <script type="text/javascript" src="js/jquery_min.js"></script>
+        <link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <?php 
@@ -39,8 +44,13 @@
                                 <?php
                                 }else{
                                     $couchRow= mysqli_fetch_array ($result);
+                                    //CONSULTA TIPO DE COUCHS DISPONIBLES PARA ELEGIR
                                     $query= "SELECT * FROM tipocouchs ORDER BY nombre";
                                     $result= mysqli_query($link, $query);
+                                    //CONSULTA IMAGENES DE LA PUBLICAZAO
+                                    $query= "SELECT * FROM imagenes WHERE idcouch=$couchid";                                    
+                                    $imgResult= mysqli_query($link, $query);
+                                    $imgamount= mysqli_num_rows($imgResult);
                                 }
                             }
                             
@@ -115,8 +125,30 @@
                                     <div class="formLabel">
                                         <label>Imágenes:</label>
                                     </div>
-                                    <div class="formInput">
-                                        <input type="file" name="img1" id="img1">
+                                    <?php
+                                        if($imgamount == 1){
+                                            $imgRow = mysqli_fetch_array($imgResult);
+                                            
+                                            echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=50px height=50px ></a></td>';
+                                            echo'<div id="editButton">';
+                                            echo'<a href="editIMG.php?img='.$imgRow["idimagen"].'">Cambiar</a><br>';
+                                            echo'</div>';
+                                        }else{
+                                            while ($imgRow = mysqli_fetch_array($imgResult)) {
+                                                echo'<div id="imgEdit">';
+                                                echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=50px height=50px ></a></td>';
+                                                echo'<div id="editButton">';
+                                                echo'<a href="editIMG.php?img='.$imgRow["idimagen"].'">Cambiar</a><br>';
+                                                echo'</div>';
+                                                echo'<div id="editButton">';
+                                                echo'<a href="deleteIMG.php?id='.$couchid.'&img='.$imgRow["idimagen"].'">Eliminar</a><br>';
+                                                echo'</div>';
+                                                echo'</div>';
+                                            }                                            
+                                        }
+                                    ?>
+<!--                                    <div class="formInput">
+                                        <input type="file" name="img1" id="img1" value="hola.png">
                                     </div>
                                     <div class="formInput">
                                         <input type="file" name="img2" id="img2" style="display: none">
@@ -129,7 +161,7 @@
                                     </div>
                                     <div class="formInput">
                                         <input type="file" name="img5" id="img5" style="display: none">
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <input type="hidden" name="userid" value="<?php getUserID() ?>">
                                 <div id="couchSubmit">

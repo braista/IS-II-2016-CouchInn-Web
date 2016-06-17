@@ -1,3 +1,32 @@
+function couchFormValidation(){
+    title= value("title1");
+    capacity= value("capacity");
+    place= value("place");
+    description= value("description");
+    img1= value("img1");
+    if(title === "" || !(isNaN(title))){
+        focus("title1");
+        alert("El título debe contener caracteres alfanumericos.");
+        return (false);
+    }
+    if(capacity === "" || isNaN(capacity)){
+        focus("capacity");
+        alert("La capacidad debe contener un valor válido.");
+        return (false);
+    }
+    if(place === "" || !(isNaN(place))){
+        focus("place");
+        alert("El lugar debe contener caracteres alfanumericos.");
+        return (false);
+    }
+    if(description === "" || !(isNaN(description))){
+        focus("description");
+        alert("La descripción debe contener caracteres alfanumericos.");
+        return (false);
+    }
+    return (true);
+}
+
 function hide(id){
     $('#' + id).hide();
 }
@@ -243,7 +272,7 @@ function sendQuestion(){
 
 function confirmCancel(){
     if(confirm("¿Estas seguro que deseas cancelar y volver?"))
-        location.href="profile.php";
+        history.back();
 }
 
 function redirect(url){
@@ -302,12 +331,12 @@ function confirmacionA(){
 }
 
 function passConfirm(){
-        pass= document.register.pass.value;
-        rpass= document.register.rpass.value;
-        if(pass != rpass){
-                document.register.pass.style.border="3px solid rgba(189, 8, 8, 0.61)";
-        } else
-                document.register.pass.style.border="3px solid rgba(8, 165, 8, 0.63)";
+    pass= document.register.pass.value;
+    rpass= document.register.rpass.value;
+    if(pass != rpass)
+        document.register.pass.style.border="3px solid rgba(189, 8, 8, 0.61)";
+    else
+        document.register.pass.style.border="3px solid rgba(8, 165, 8, 0.63)";
 }
 function submitDesactivation(){
     $('input[type="submit"]').css('background-color', 'darkgray');
@@ -360,6 +389,18 @@ function validateInputFile(){
         img3= $('#img3');
         img4= $('#img4');
         img5= $('#img5');
+        if(img2.val() == ""){
+            img2.hide();
+        }
+        if(img3.val() == ""){
+            img3.hide();
+        }
+        if(img4.val() == ""){
+            img4.hide();
+        }
+        if(img5.val() == ""){
+            img5.hide();
+        }
         
         img1.change(function(){
             if (img1.val() == ''){
@@ -394,38 +435,5 @@ function validateInputFile(){
             }else
                 show('img5');
         });
-    });
-}
-
-function couchFormValidation(){
-    $('document').ready(function(){
-        title= $('#title1');
-        capacity= $('#capacity');
-        location= $('#location');
-        description= $('#description');
-        if(title.val() == "" || !(isNaN(title.val()))){
-            error('title1');
-            title.focus().after("<span class='formError'>Ingrese un título válido</span>");
-            return false;
-        }else if(capacity.val() == "" || isNaN(capacity.val())){
-            error('capacity');
-            capacity.focus().after("<span class='formError'>Ingrese una capacidad válida</span>");
-            return false;
-        }else if(location.val() == "" || !(isNaN(location.val())) ){
-            error('location');
-            location.focus().after("<span class='formError'>Ingrese una ubicación válida</span>");
-            return false;
-        }
-        else{
-            return true;
-        }
-        
-        $("#title1, #capacity, #location").keyup(function(){
-            if( $(this).val() != "" ){
-                $(".formError").fadeOut();
-                noError('title1');
-                return false;
-            }
-        });
     });
 }

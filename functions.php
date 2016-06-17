@@ -1,5 +1,10 @@
 <?php 
-
+function confirm($texto){
+    echo'<script language="javascript">confirm('.$texto.');</script>';
+}
+function back(){
+    echo'<script language="javascript">history.back();</script>';
+}
 function redirect($url) {	
         echo'<script language="javascript">location.href="'.$url.'";</script>';
 }
@@ -15,6 +20,10 @@ function redirect($url) {
     function redirectWithAlert($url, $text) {
             alert($text);
             redirect($url);
+}
+function redirectWithAlertAfter($url, $text, $seconds) {
+            alert($text);
+            redirectAfter($url, $seconds);
 }
     
     function checkAuth() {
@@ -70,6 +79,17 @@ function redirect($url) {
         return $couchType;
     }
 	
+    function getIMGType($type){
+        if($type == "image/jpg")
+            return "jpg";
+        if($type == "image/jpeg")
+            return "jpeg";
+        if($type == "image/gif")
+            return "gif";
+        if($type == "image/png")
+            return "png";
+    }
+    
 	function getAuth() {
 		if (isset($_SESSION['user']))
 			return true;

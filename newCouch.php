@@ -1,21 +1,23 @@
 <html>
-    <head> 
-        <script type="text/javascript" src="/functions.js"></script>                       
-       	<link rel="stylesheet" href="CSS/main.css">               
+    <head>
+        <script type="text/javascript" src="/js/validations.js"></script>
+        <script type="text/javascript" src="/functions.js"></script>
+       	<link rel="stylesheet" href="CSS/main.css">
         <script src="jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <?php 
+        <?php
             include_once 'functions.php';
             $link=  connect();
-        ?>  
+        ?>
         <title>CouchInn - Nuevo couch</title>
 	</head>
 		<body>
 			<!-- HEADER -->
-			<header>		
+            <header>
                 <?php
                     show('header');
+                    checkAuth();
                 ?>
 			</header>
 	
@@ -27,16 +29,17 @@
                             <p>Agregar nueva publicación</p>
                         </div>
                         <p style="clear: both; text-indent: 1%;">Completa los campos para agregar la nueva publicación.</p>
-                        <?php 
+                        <?php
                             //CONSULTA TIPO DE COUCHS
                             $query= "SELECT * FROM tipocouchs ORDER BY nombre";
                             $result= mysqli_query($link, $query);
+                            $userid= getUserID();
                         ?>
                         <div id="registerSection">
-                            <form name="couch" action="addCouch.php" method="POST" onsubmit="return (formValidation('couch'));">
+                            <form name="couch" action="addCouch.php" method="POST" onsubmit="return couchFormValidation();" enctype="multipart/form-data">
                                 <div id="formItem">
                                     <div class="formLabel">
-                                        <label>Titulo:</label>
+                                        <label>Título:</label>
                                     </div>
                                     <div class="formInput">
                                         <input type="text" name="title1" id="title1" maxlength="25" minlength="4" placeholder="Título de la publicación">
@@ -55,7 +58,7 @@
                                         <label>Lugar:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="text" name="location" id="location" placeholder="Lugar donde se encuentra">
+                                        <input type="text" name="place" id="place" placeholder="Lugar donde se encuentra">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -95,7 +98,7 @@
                                         <label>Imágenes:</label>
                                     </div>
                                     <div class="formInput">
-                                        <input type="file" name="img1" id="img1">
+                                        <input type="file" name="img1" id="img1" required onchange="validateInputFile();">
                                     </div>
                                     <div class="formInput">
                                         <input type="file" name="img2" id="img2" style="display: none">
@@ -110,7 +113,7 @@
                                         <input type="file" name="img5" id="img5" style="display: none">
                                     </div>
                                 </div>
-                                <input type="hidden" name="userid" value="<?php getUserID() ?>">
+                                <input type="hidden" name="userid" value="<?php echo $userid; ?>">
                                 <div id="couchSubmit">
                                     <input type="submit" id="button" value="Publicar">
                                 </div>
