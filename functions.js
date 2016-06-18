@@ -46,6 +46,12 @@ function hideAndClear(id){
     hide(id);
 }
 
+function confirmCancelEditCouch(){
+    if(confirm("¿Cancelar la modificación del couch?")){
+        redirect("cpanel.php");
+    }
+}
+
 function error(id){
     $('#' + id).css('border', '3px solid rgba(188, 16, 16, 0.72)');
 }
@@ -276,7 +282,7 @@ function confirmCancel(){
 }
 
 function redirect(url){
-    location.href="url";
+    location.href=url;
 }
 
 function redirectAfter(url, seconds){

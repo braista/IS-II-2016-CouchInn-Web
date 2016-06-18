@@ -6,7 +6,7 @@
         $query= "UPDATE couchs SET habilitado='1' WHERE idcouch='$couchid'";;
         $result= mysqli_query($link, $query);
         if($result){
-            redirectWithAlert('cpanel.php', 'El couch fue habilitado correctamente.');
+            redirectAfter("cpanel.php?enable", 1);
         }
     }
 ?>

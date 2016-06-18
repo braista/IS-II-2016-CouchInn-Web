@@ -26,20 +26,7 @@
 		<!-- CONTENEDOR-->
 		
 		<div id="contenedor">
-            <div id="content">                
-                <?php
-                    // CARTEL DE MODIFICACION CORRECTA Y CODIGO JQUERY PARA OCULTAR EN CASO DE CLICK
-                    if(isset($_GET['ok']) && $_GET['ok']== 'true'){ ?>
-                        <div id="okUpdate" class="ok">
-                            <img src="img/ok.png" class="okImg">
-                            <p class="noMargin">Los datos del perfil se modificaron correctamente.</p>
-                        </div>
-                        <script>
-                            hideDivBlur('#okUpdate');
-                        </script>
-                <?php
-                    }
-                ?> 
+            <div id="content">                     
 				<div id="info">
                     <div id="title">
                         <p>Panel de control</p>
@@ -58,6 +45,47 @@
                     <div id="subtitle">
                         <p class="subtitle">Mis couchs</p>
                     </div>
+                    <?php
+                    // CARTEL DE MODIFICACION CORRECTA Y CODIGO JQUERY PARA OCULTAR EN CASO DE CLICK
+                    if(isset($_GET['add'])){ ?>
+                         <div id="okUpdate" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">La publicación se agregó correctamente.</p>
+                        </div>                        
+                    <?php
+                    }
+                    if(isset($_GET['enable'])){ ?>
+                        <div id="okUpdate" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">La publicación se habilitó correctamente.</p>
+                        </div>
+                    <?php
+                    }
+                    if(isset($_GET['disable'])){ ?>
+                        <div id="okUpdate" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">La publicación se deshabilitó correctamente.</p>
+                        </div>
+                    <?php
+                    }
+                    if(isset($_GET['edit'])){ ?>
+                        <div id="okUpdate" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">La publicación se modificó correctamente.</p>
+                        </div>                        
+                    <?php
+                    }
+                    if(isset($_GET['delete'])){ ?>
+                        <div id="okUpdate" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">La publicación se eliminó correctamente.</p>
+                        </div>                        
+                    <?php
+                    }
+                    ?>                    
+                    <script>
+                        hideDivBlur('#okUpdate');
+                    </script>
                     <?php 
                     if(!($ok)){ ?>
                         <div id="alertUpdate" class="alert">

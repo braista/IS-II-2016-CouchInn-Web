@@ -83,7 +83,7 @@ function redirectWithAlertAfter($url, $text, $seconds) {
         if($type == "image/jpg")
             return "jpg";
         if($type == "image/jpeg")
-            return "jpeg";
+            return "jpg";
         if($type == "image/gif")
             return "gif";
         if($type == "image/png")
