@@ -49,7 +49,10 @@ function redirectWithAlertAfter($url, $text, $seconds) {
         return $user;            
     }
 	function getUserID(){
-		$userid= $_COOKIE['userid'];
+        if(isset($_SESSION['userid']))
+            $userid= $_SESSION['userid'];
+		else
+            $userid= 0;
 		return $userid;
 	}
 	function getUserType($userid) {

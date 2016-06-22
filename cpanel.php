@@ -87,16 +87,16 @@
                                     $img= $imgRow['imagen'];                                    
                                 }
                                 echo '<tr>';
-                                echo'<td class="item"><img src="img/'.$img.'" width=50px height=50px ></td>';
-                                echo'<td class="item">'.$row["titulo"].'</td>';
+                                echo'<td class="item"><a href="show.php?id='.$row["idcouch"].'"><img src="img/'.$img.'" width=50px height=50px ></a></td>';
+                                echo'<td class="item"><a href="show.php?id='.$row["idcouch"].'">'.$row["titulo"].'</a></td>';
                                 echo'<td class="item">'.$couchType.'</td>';
                                 echo'<td class="item"><a href="editCouch.php?id='.$couchid.'"><img src="img/modi.png" width=25px height=25px ></a></td>';
                                 echo'<td class="item"><a href="deleteCouch.php"><img src="img/del.gif" width=20px height=20px ></a></td>';
                                 if($row['habilitado'] == 1){ ?>                                
-                                    <td class="item"><a href="disableCouch.php?id=<?php echo $couchid; ?>" onclick="javascript:confirm('Deshabilitar la publicación?')">Deshabilitar</a></td>
+                                    <td class="item"><a href="disableCouch.php?id=<?php echo $couchid; ?>">Deshabilitar</a></td>
                                 <?php
                                 }else { ?>
-                                    <td class="item"><a href="enableCouch.php?id=<?php echo $couchid; ?>" onclick="javascript:confirm('Habilitar la publicación?')">Habilitar</a></td>
+                                    <td class="item"><a href="enableCouch.php?id=<?php echo $couchid; ?>">Habilitar</a></td>
                                 <?php
                                 }
                                 echo '</tr>';

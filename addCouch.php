@@ -65,11 +65,11 @@
             if($result){
                 $query= "SELECT * FROM couchs ORDER BY idcouch DESC";
                 $row= mysqli_fetch_array(mysqli_query($link, $query));
-                $couchid= $row['idcouch'];
+                $couchid= $row['idcouch'];                                    
+                mkdir("img/".$couchid);
                 if($_FILES["img1"]["name"] != ""){
                     $imgtype= $_FILES["img1"]["type"];
-                    $img= $_FILES["img1"]["tmp_name"];                    
-                    mkdir("img/".$couchid);
+                    $img= $_FILES["img1"]["tmp_name"];
                     $path= $couchid."/1.".getIMGType($imgtype);                        
                     @move_uploaded_file($img, "img/".$path);
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";
@@ -77,8 +77,7 @@
                 }
                 if($_FILES["img2"]["name"] != ""){
                     $imgtype= $_FILES["img2"]["type"];
-                    $img= $_FILES["img2"]["tmp_name"];                    
-                    mkdir("img/".$couchid);
+                    $img= $_FILES["img2"]["tmp_name"];
                     $path= $couchid."/2.".getIMGType($imgtype);                        
                     @move_uploaded_file($img, "img/".$path);
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";
@@ -86,8 +85,7 @@
                 }
                 if($_FILES["img3"]["name"] != ""){
                     $imgtype= $_FILES["img3"]["type"];
-                    $img= $_FILES["img3"]["tmp_name"];                    
-                    mkdir("img/".$couchid);
+                    $img= $_FILES["img3"]["tmp_name"];
                     $path= $couchid."/3.".getIMGType($imgtype);                        
                     @move_uploaded_file($img, "img/".$path);
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";
@@ -95,8 +93,7 @@
                 }
                 if($_FILES["img4"]["name"] != ""){
                     $imgtype= $_FILES["img4"]["type"];
-                    $img= $_FILES["img4"]["tmp_name"];                    
-                    mkdir("img/".$couchid);
+                    $img= $_FILES["img4"]["tmp_name"];
                     $path= $couchid."/4.".getIMGType($imgtype);                        
                     @move_uploaded_file($img, "img/".$path);
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";
@@ -104,8 +101,7 @@
                 }
                 if($_FILES["img5"]["name"] != ""){
                     $imgtype= $_FILES["img5"]["type"];
-                    $img= $_FILES["img5"]["tmp_name"];                    
-                    mkdir("img/".$couchid);
+                    $img= $_FILES["img5"]["tmp_name"];
                     $path= $couchid."/5.".getIMGType($imgtype);                        
                     @move_uploaded_file($img, "img/".$path);
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";

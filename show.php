@@ -38,7 +38,7 @@
 				<div id="info">
 					
                     <?php
-                        if($userid != 0 && $usertypeid != 1){
+                        if(($userid != 0 && $userid != $ownerid) && ($usertypeid != 3)){
                     ?>
                             <div id="requestForm">
                                 <form action="request.php" method="POST">

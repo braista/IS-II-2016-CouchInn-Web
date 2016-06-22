@@ -1,8 +1,6 @@
 <?php
     if(isset($_GET['id']) && $_GET['id']!=0){
-        $userid=0;
-        if ($_COOKIE['userid'] != 0)
-            $userid= $_COOKIE['userid'];					                   
+        $userid=  getUserID();					                   
                     
 		//CONSULTA COUCH-TIPOCOUCH
         $couchid= $_GET['id']; 
