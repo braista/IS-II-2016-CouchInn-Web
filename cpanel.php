@@ -118,8 +118,14 @@
                                 echo'<td class="item"><a href="show.php?id='.$row["idcouch"].'"><img src="img/'.$img.'" width=50px height=50px ></a></td>';
                                 echo'<td class="item"><a href="show.php?id='.$row["idcouch"].'">'.$row["titulo"].'</a></td>';
                                 echo'<td class="item">'.$couchType.'</td>';
-                                echo'<td class="item"><a href="editCouch.php?id='.$couchid.'"><img src="img/modi.png" width=25px height=25px ></a></td>';
-                                echo'<td class="item"><a href="deleteCouch.php"><img src="img/del.gif" width=20px height=20px ></a></td>';
+                                echo'<td class="item"><a href="editCouch.php?id='.$couchid.'"><img src="img/modi.png" width=25px height=25px ></a></td>';?>
+                                <td class="item">
+                                    <form action="delete.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
+                                        <input type="hidden" name="couchid" value="<?php echo $couchid; ?>">
+                                        <input type="image" value="Borrar" src="img/del.gif" width=22px height=22px>
+                                    </form>
+                                </td>
+                                <?php
                                 if($row['habilitado'] == 1){ ?>                                
                                     <td class="item"><a href="disableCouch.php?id=<?php echo $couchid; ?>">Deshabilitar</a></td>
                                 <?php

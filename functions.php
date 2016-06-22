@@ -57,10 +57,13 @@ function redirectWithAlertAfter($url, $text, $seconds) {
 	}
 	function getUserType($userid) {
 		$link= connect();
-		$SQL= "SELECT idtipousuario FROM usuarios WHERE idusuario='$userid'";
-		$result= mysqli_query($link, $SQL);
-		$usertypeRow= mysqli_fetch_array($result);
-		$usertype= $usertypeRow['idtipousuario'];
+        if($userid != 0){
+            $SQL= "SELECT idtipousuario FROM usuarios WHERE idusuario='$userid'";
+            $result= mysqli_query($link, $SQL);
+            $usertypeRow= mysqli_fetch_array($result);
+            $usertype= $usertypeRow['idtipousuario'];
+        } else
+            $usertype= 0;
 		return $usertype;
 	}
     

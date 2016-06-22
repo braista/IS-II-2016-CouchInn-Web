@@ -1,6 +1,7 @@
 <?php
     if(isset($_GET['id']) && $_GET['id']!=0){
-        $userid=  getUserID();					                   
+        $userid=  getUserID();
+        $usertypeid= getUserType($userid);
                     
 		//CONSULTA COUCH-TIPOCOUCH
         $couchid= $_GET['id']; 
@@ -31,15 +32,6 @@
             $userRow= mysqli_fetch_array($result);
             $lname= $userRow['apellido'];
             $fname= $userRow['nombre']; 
-                        
-            //CONSULTA TIPO USUARIO (VISITANTE)
-            if ($userid != 0){
-                $SQL= "SELECT idtipousuario FROM usuarios WHERE idusuario=$userid";
-                $result= mysqli_query($link, $SQL);
-                $userRow= mysqli_fetch_array($result);
-                $usertypeid= $userRow['idtipousuario'];
-            }
-                        
         }else
             echo '<script>showError("couchError")</script>';                    
 	} else

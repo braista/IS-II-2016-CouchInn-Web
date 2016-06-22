@@ -49,6 +49,21 @@
                             </div>
                     <?php
                         }
+                        if($userid == $ownerid){ ?>
+                            <div id="couchButton">
+                                <a href="editCouch.php?id=<?php echo $couchid; ?>"><img src="img/modi.png" width=25px height=25px title="Modificar publicación"></a>                                
+                            </div>                    
+                    <?php    
+                        }
+                        if($userid == $ownerid || $usertypeid == 3){ ?>
+                            <div id="couchButton">
+                                <form action="delete.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
+                                    <input type="hidden" name="couch" value="<?php echo $couchid; ?>">
+                                    <input type="image" value="Borrar" src="img/del.gif" width=22px height=22px title="Eliminar publicación">
+                                </form>
+                            </div>
+                    <?php    
+                        }
                     ?>
                     <div id="title">
 						<p><?php echo $couchRow['titulo']; ?></p>

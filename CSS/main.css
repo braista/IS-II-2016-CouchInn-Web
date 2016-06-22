@@ -233,6 +233,10 @@ table a{
 	margin: auto;
 }
 
+td form{
+    margin-bottom: 0;
+}
+
 #info{
 	border: 1px solid grey;
 	width: 100%;
@@ -274,6 +278,11 @@ table a{
 
 #requestForm{
     float: right;
+}
+
+#couchButton{
+    float: right;
+    padding: 1%;
 }
 
 #img{	
