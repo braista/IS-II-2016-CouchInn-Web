@@ -116,6 +116,7 @@
                                 <input type="hidden" name="userid" value="<?php echo $userid; ?>">
                                 <div id="couchSubmit">
                                     <input type="submit" id="button" value="Publicar">
+                                    <input type="button" id="button" value="Cancelar" onclick="confirmCancelEditCouch()">
                                 </div>
                             </form>
                             <script>

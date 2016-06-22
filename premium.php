@@ -27,13 +27,13 @@
             <?php
             
                 //VALIDA SI ESTA LOGUEADO Y SI LO ESTA, EL TIPO DE USUARIO
-		if(getAuth()){
-			$usertype= getUserType(getUserID());
-                        $noauth= false;
-                }else{
-                        $usertype= 0;
-			$noauth= true;                        
-                }
+            if(getAuth()){
+                $usertype= getUserType(getUserID());
+                $noauth= false;
+            }else{
+                $usertype= 0;
+                $noauth= true;                        
+            }
             ?>
             <div id="content">               
 				<div id="info">
@@ -66,7 +66,8 @@
                     </div>
                     <?php
                         if(!($noauth)){
-                                if($usertype == 1){
+                            if($usertype == 1){
+                                $userid= getUserID();
                     ?>
                     <div id="premiumButton">
                         <a href="#" id="button">HACERME PREMIUM</a>

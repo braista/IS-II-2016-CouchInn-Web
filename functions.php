@@ -8,6 +8,17 @@ function back(){
 function redirect($url) {	
         echo'<script language="javascript">location.href="'.$url.'";</script>';
 }
+
+function deleteFolder($folder){
+    foreach(glob($folder . "/*") as $file){
+        if (is_dir($file))        
+            deleteFolder($file);        
+        else        
+            unlink($file);        
+    } 
+    rmdir($folder);
+}
+
     function redirectAfter($url, $seconds){
         sleep($seconds);
 	redirect($url);

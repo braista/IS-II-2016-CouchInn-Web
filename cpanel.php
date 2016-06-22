@@ -120,7 +120,7 @@
                                 echo'<td class="item">'.$couchType.'</td>';
                                 echo'<td class="item"><a href="editCouch.php?id='.$couchid.'"><img src="img/modi.png" width=25px height=25px ></a></td>';?>
                                 <td class="item">
-                                    <form action="delete.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
+                                    <form action="deleteCouch.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
                                         <input type="hidden" name="couchid" value="<?php echo $couchid; ?>">
                                         <input type="image" value="Borrar" src="img/del.gif" width=22px height=22px>
                                     </form>

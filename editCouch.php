@@ -32,7 +32,7 @@
                         <div id="title">
                             <p>Modificar publicación</p>
                         </div>
-                        <p style="clear: both; text-indent: 1%;">Modifica la publicación de tu couch en el siguiente formulario.</p>
+                        <p style="clear: both; text-indent: 1%;">Modifica la publicación de tu couch en el siguiente formulario. No es necesario aplicar los cambios para modificar las imágenes.</p>
                         <?php
                             if(isset($_GET['id']) && $_GET['id'] != ""){
                                 $couchid= $_GET['id'];

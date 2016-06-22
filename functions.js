@@ -183,11 +183,12 @@ function formValidation(option){
                 document.premium.owner.focus();
                 return false;
             }
-            else if(expd == null || expd.length == 0){
+            else if(expd == null || expd.length == 0){                
                 alert("El campo Vencimiento es necesario y debe escribirse correctamente.");
                 document.premium.expd.focus();
                 return false;
-            } else if(expd.charAt(3) != '/'){
+            } 
+            else if(isNaN(expd.charAt(0))|| isNaN(expd.charAt(1))|| expd.charAt(2) != '/' || isNaN(expd.charAt(3))|| isNaN(expd.charAt(4))){
                 alert("Escriba el vencimiento de la tarjeta correctamente. Ej: 10/05 (MM/AA)");
                 document.premium.expd.focus();
                 return false;
