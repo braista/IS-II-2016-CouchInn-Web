@@ -80,7 +80,7 @@
                         <div id="galery">
                             <?php
                                 //CONSULTA IMG					
-                                $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid";
+                                $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid ORDER BY imagen ASC";
                                 $imgResult = mysqli_query($link, $SQL);
                                 for ($i = 1; $i < $imgamount+1; $i++) {
                                     $imgRow = mysqli_fetch_array($imgResult); ?>

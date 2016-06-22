@@ -107,14 +107,11 @@
                     $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path','$couchid')";
                     mysqli_query($link, $query);                    
                 }
-                redirectWithAlertAfter('cpanel.php', 'La publicacion se creo correctamente!', 2);
+                redirectAfter("cpanel.php?add", 1);
             } else{
                 alert("Error al cargar los datos en la base de datos.");
-            }
-                
+            }                
         }
-    }
-    
-    
+    } 
 ?>
 

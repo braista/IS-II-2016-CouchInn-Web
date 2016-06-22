@@ -5,7 +5,8 @@
     $lname= $_POST['lname'];
     $fname= $_POST['fname'];
     $bdate= $_POST['bdate'];
-    $SQL = "UPDATE usuarios SET apellido='$lname', nombre='$fname', fnacimiento='$bdate' WHERE idusuario='$userid'";
+    $phonen= $_POST['phonen'];
+    $SQL = "UPDATE usuarios SET apellido='$lname', nombre='$fname', fnacimiento='$bdate', telefono='$phonen' WHERE idusuario='$userid'";
     $result= mysqli_query($link, $SQL);
     if($result){
         session_start();
