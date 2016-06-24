@@ -36,24 +36,17 @@
                     <a id="backButton" class="fade" href="index.php">◄ Atrás</a>
 				</div>
 				<div id="info">
-					
                     <?php
                         if(($userid != 0 && $userid != $ownerid) && ($usertypeid != 3)){
                     ?>
                             <div id="requestForm">
                                 <form action="request.php" method="POST">
-                                    <input type="hidden" name="couch" value="<?php echo $couchid; ?>">
-                                    <input type="hidden" name="user" value="<?php echo $userid; ?>">
+                                    <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
+                                    <input type="hidden" name="userID" value="<?php echo $userid; ?>">
                                     <input type="submit" id="button" value="Solicitar">
                                 </form>
                             </div>
                     <?php
-                        }
-                        if($userid == $ownerid){ ?>
-                            <div id="couchButton">
-                                <a href="editCouch.php?id=<?php echo $couchid; ?>"><img src="img/modi.png" width=25px height=25px title="Modificar publicación"></a>                                
-                            </div>                    
-                    <?php    
                         }
                         if($userid == $ownerid || $usertypeid == 3){ ?>
                             <div id="couchButton">
@@ -64,10 +57,27 @@
                             </div>
                     <?php    
                         }
+                        if($userid == $ownerid){ ?>
+                            <div id="couchButton">
+                                <a href="editCouch.php?id=<?php echo $couchid; ?>"><img src="img/modi.png" width=25px height=25px title="Modificar publicación"></a>                                
+                            </div>
+                    <?php    
+                        }
                     ?>
                     <div id="title">
 						<p><?php echo $couchRow['titulo']; ?></p>
 					</div>
+                    <?php                        
+                        if($userid == $ownerid){ ?>
+                            <div id="myRequests">
+                                <form action="myRequests.php" method="POST">
+                                    <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
+                                    <input type="submit" id="button" value="Ver reservas">
+                                </form> 
+                            </div>
+                    <?php    
+                        }
+                    ?>
                     <div id="couchDetails">
                         <div id="img">
                             <a href="img/<?php echo $img; ?>" rel="lightbox" id="imglink"><img id="imgdefault" src="img/<?php echo $img; ?>"></a> 

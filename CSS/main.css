@@ -246,11 +246,10 @@ td form{
 
 /*MOSTRAR COUCH*/
 
-#title{	
-	padding-bottom: 2%;
+#title{
 	width: 85%;
 	height: 7%;
-        float: left;
+    float: left;
 }
 
 #title p{
@@ -259,6 +258,11 @@ td form{
 	font-size: 150%;
 	text-indent: 1%;
     font-weight: bold;
+}
+
+#buttons{
+    width: 100%;
+    overflow: hidden;
 }
 
 #subtitle{
@@ -278,6 +282,10 @@ td form{
 
 #requestForm{
     float: right;
+}
+
+#myRequests{
+    float: left;
 }
 
 #couchButton{

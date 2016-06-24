@@ -52,13 +52,20 @@
                             </script>
                     <?php
                         }			
-			if($usertype == 2){?>
-				<div id="okPremium" class="ok">
-                                       <img src="img/ok.png" class="okImg">
-                                        <p class="noMargin">Ya eres un usuario premium.</p>
-                                </div>
+                    if($usertype == 2){?>
+                        <div id="okPremium" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">Ya eres un usuario premium.</p>
+                        </div>
                     <?php
-                        }			
+                    }
+                    if($usertype == 3){?>
+                        <div id="okPremium" class="ok">
+                            <img src="img/ok.png" class="okImg">
+                            <p class="noMargin">Los administradores no necesitan ser Premium :P.</p>
+                        </div>
+                    <?php
+                    }
                     ?>
                     <div id="premiumDescription">
                         <p>Los usuarios premium del sitio tienen los siguientes beneficios:</p>

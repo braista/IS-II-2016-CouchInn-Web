@@ -57,6 +57,39 @@ function value(id){
 
 function formValidation(option){
     switch(option){
+        case "request":
+            fdate= value("fdate");
+            tdate= value("tdate");
+            amount= value("amount");
+            maxAmount= value("maxAmount");
+            today= new Date().toJSON().slice(0,10);
+            if(fdate == "" || Date.parse(fdate) < Date.parse(today)){
+                alert("La fecha del campo 'Desde' debe ser una fecha válida.");
+                focus("fdate");
+                return (false);
+            }
+            else if(tdate == "" || Date.parse(tdate) <= Date.parse(today)){
+                alert("La fecha del campo 'Hasta' debe ser una fecha válida.");
+                focus("tdate");
+                return (false);
+            }
+            else if(Date.parse(tdate) <= Date.parse(fdate)){
+                alert("La fecha del campo 'Hasta' debe ser una fecha mayor a la del campo 'Desde'.");
+                focus("tdate");
+                return (false);
+            }
+            else if(amount == "" || parseInt(amount) <= 0){
+                alert("La cantidad de personas debe contener un valor válido.");
+                focus("amount");
+                return (false);
+            }
+            else if(parseInt(amount) > parseInt(maxAmount)){
+                alert("La cantidad de personas debe ser menor o igual a la capacidad maxima de la publicación.");
+                focus("maxAmount");
+                return (false);
+            }
+            return (true);
+        break;
         case "couch":
             title= value("title1");
             capacity= value("capacity");
