@@ -4,9 +4,9 @@
         <link rel="stylesheet" href="fonts/style.css">
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-         <?php
+         <script type="text/javascript" src="functions.js"></script>
+          <?php
          	include_once 'functions.php';
-         	include_once 'scripts.js';
          	$link = connect();
           ?>                
         <title>CouchInn - Agregar Tipo de Hospedaje</title>
@@ -16,19 +16,20 @@
 		<header>		
 			<?php
 				show('header');
+				checkBackendAuth(getUserID());
 			?>       
 		</header>
 		<div id="contenedor">
 		<?php
 
 			echo'<div id="backButton">
-			<a class="backButton" href="listado.php">◄ Atrás</a></br>
+			<a class="fade" href="listado.php">◄ Atrás</a></br>
 			</div>
-			<form class="backend_container" style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="confirmacionA();">
+			<form class="backend_container" style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="return confirmacionA();">
 			<span>Nombre: </span>
 			<input type="text" class="texto_biselado" maxlength="18" name="tipohospedaje" id="tipohospedaje" required>
 			<input type="hidden" name="agregar" value="ok_hospedaje">
-			<button class="button button_primary" style="margin:10px" type="submit" value="agregar">Agregar</button>
+			<button id="button" style="margin:10px" type="submit" value="agregar">Agregar</button>
 			</form>';
 
 //Luego, si ya se mandó a agregar un hospedaje
@@ -39,17 +40,17 @@
 			if(mysqli_num_rows($resultado) == 0){
 				$sql="INSERT INTO tipocouchs(nombre, eliminado) VALUES('$tipohospedaje', '$eliminado')";
 				if(mysqli_query($link,$sql))
-					echo '<p> Exito en la carga! <img src="img/success.png" height="20px" weight="20px"> </p>';
+					echo '</br><p> Exito en la carga! <img src="img/ok.png" height="30px" weight="30px"> </p>';
 				else
-					echo '<p> La carga del nuevo Tipo de Hospedaje Falló <img src="img/error.png" width="15px" height="15px"></p>';
+					echo '</br<p> La carga del nuevo Tipo de Hospedaje Falló <img src="img/notok.png" width="30px" height="30px"></p>';
 			}else{
 				$row=mysqli_fetch_array($resultado);
 				if ($row['eliminado'] == 1){
 					$sql="UPDATE tipocouchs SET eliminado='$eliminado' WHERE nombre='$tipohospedaje'";
 					if(mysqli_query($link,$sql))
-						echo '<p> Exito en la carga! <img src="img/success.png" height="20px" weight="20px"> </p>';
+						echo '<p> Exito en la carga! <img src="img/ok.png" height="30px" weight="30px"> </p>';
 					else
-						echo '<p> La carga del nuevo Tipo de Hospedaje Falló <img src="img/error.png" width="15px" height="15px"></p>';
+						echo '<p> La carga del nuevo Tipo de Hospedaje Falló <img src="img/notok.png" width="30px" height="30px"></p>';
 				}else
 					echo '<p> Ya se dispone de un hospedaje de ese mismo tipo, verifique los datos y vuelva a intentarlo <img src="img/error.png" width="15px" height="15px"></p>';
 			}		

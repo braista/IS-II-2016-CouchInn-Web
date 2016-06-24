@@ -4,6 +4,11 @@
         <link rel="stylesheet" href="fonts/style.css">
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script language="javascript" type="text/javascript">
+			function confirmacionB(){
+    			return(confirm("Está seguro que desea eliminar este tipo de hospedaje?"));
+			}
+		</script>
          <?php
          	include_once 'functions.php';
          	$link = connect();
@@ -15,6 +20,7 @@
 		<header>		
 			<?php
 				show('header');
+				checkBackendAuth(getUserID());
 			?>       
 		</header>
 		<div id="contenedor">
@@ -35,14 +41,18 @@
 				while($row=mysqli_fetch_array($result)){
 					if ($row['eliminado'] != 1){
 						echo '<div style="text-align:left; margin:30px">
-						<form name="hosp" action="mod_tipo.php" method="GET" onsubmit="return confirmacion();">
+						<div width="40px">
+						<form name="hospM" action="mod_tipo.php" method="GET" onsubmit="return confirmacionB();">
 						<p>'.$row['nombre'].':</p>
 						<input name="nombre" id="nombre" type="hidden" value="'.$row['nombre'].'">
-			
 						<button type="submit" name="tipohospedajerem_id" value="'.$row['idtipocouch'].'">
 							<img height="25px" width="25px" src="img/del.gif"/>
 						</button>
-				
+						</form>
+						</div>
+
+						<form name="hospB" action="mod_tipo.php" method="GET">
+						<input name="nombre" id="nombre" type="hidden" value="'.$row['nombre'].'">
 						<button type="submit" name="tipohospedajemod_id" value="'.$row['idtipocouch'].'">
 							<img height="25px" width="25px" src="img/modi.png"/>
 						</button>
