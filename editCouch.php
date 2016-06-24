@@ -56,7 +56,7 @@
                             
                         ?>
                         <div id="registerSection">
-                            <form name="couch" action="updateCouch.php" method="POST" onsubmit="return couchFormValidation();" >
+                            <form name="couch" action="updateCouch.php" method="POST" onsubmit="return formValidation('couch');" >
                                 <div id="formItem">
                                     <div class="formLabel">
                                         <label>Titulo:</label>

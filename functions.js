@@ -1,32 +1,3 @@
-function couchFormValidation(){
-    title= value("title1");
-    capacity= value("capacity");
-    place= value("place");
-    description= value("description");
-    img1= value("img1");
-    if(title === "" || !(isNaN(title))){
-        focus("title1");
-        alert("El título debe contener caracteres alfanumericos.");
-        return (false);
-    }
-    if(capacity === "" || isNaN(capacity)){
-        focus("capacity");
-        alert("La capacidad debe contener un valor válido.");
-        return (false);
-    }
-    if(place === "" || !(isNaN(place))){
-        focus("place");
-        alert("El lugar debe contener caracteres alfanumericos.");
-        return (false);
-    }
-    if(description === "" || !(isNaN(description))){
-        focus("description");
-        alert("La descripción debe contener caracteres alfanumericos.");
-        return (false);
-    }
-    return (true);
-}
-
 function hide(id){
     $('#' + id).hide();
 }
@@ -44,6 +15,11 @@ function clear(id) {
 function hideAndClear(id){
     clear(id);
     hide(id);
+}
+
+function confirmCancelAndRedirect(text, url){
+    if(confirm(text))
+        redirect(url);
 }
 
 function confirmCancelEditCouch(){
@@ -84,34 +60,29 @@ function formValidation(option){
         case "couch":
             title= value("title1");
             capacity= value("capacity");
-            location= value("location");
+            place= value("place");
             description= value("description");
-            img= value("img1");
-            if(title == "" || !(isNaN(title))){
-                alert("El campo titulo debe contener caracteres alfanumericos.");
+            if(title === "" || !(isNaN(title))){
                 focus("title1");
-                return false;
+                alert("El título debe contener caracteres alfanumericos.");
+                return (false);
             }
-            if(capacity == "" || isNaN(capacity)){
-                alert("El campo capacidad debe contener un valor válido.");
+            if(capacity === "" || isNaN(capacity) || parseInt(capacity) <= 0){
                 focus("capacity");
-                return false;
+                alert("La capacidad debe contener un valor válido.");
+                return (false);
             }
-            if(location == "" || !(isNaN(location))){
-                alert("El campo lugar debe contener un valor válido.");
-                focus("location");
-                return false;
+            if(place === "" || !(isNaN(place))){
+                focus("place");
+                alert("El lugar debe contener caracteres alfanumericos.");
+                return (false);
             }
-            if(description == "" || !(isNaN(description))){
-                alert("El campo descripción debe contener un valor válido.");
+            if(description === "" || !(isNaN(description))){
                 focus("description");
-                return false;
+                alert("La descripción debe contener caracteres alfanumericos.");
+                return (false);
             }
-            if(img == ""){
-                alert("El archivo debe ser una imágen válida.");
-                focus("img1");
-                return false;
-            }
+            return (true);
             break;
         case "search":
             tag = document.searcher.tag.value;

@@ -57,8 +57,8 @@
                         }
                         if($userid == $ownerid || $usertypeid == 3){ ?>
                             <div id="couchButton">
-                                <form action="delete.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
-                                    <input type="hidden" name="couch" value="<?php echo $couchid; ?>">
+                                <form action="deleteCouch.php" method="POST" onsubmit="return (confirm('¿Desea borrar la publicación?'));">
+                                    <input type="hidden" name="couchid" value="<?php echo $couchid; ?>">
                                     <input type="image" value="Borrar" src="img/del.gif" width=22px height=22px title="Eliminar publicación">
                                 </form>
                             </div>

@@ -27,14 +27,7 @@ if(isset($_POST['couchid'])){
             back();
         }
     }else{ //LA PUBLICACION TIENE RESERVAS. ENTONCES SE CONSULTA SI DESHABILITAR O NO.
-        echo'
-            <script language="javascript">
-                if(confirm("La publicación que desea eliminar tiene reservas en este momento. ¿Quieres deshabilitar la publicación?")){
-                    location.href="disableCouch.php?id='.$couchID.'";
-                } else{
-                    location.href="cpanel.php";
-                }
-            </script>';
+        redirectWithAlert("disableCouch.php?id=$couchID", "La publicación que se intentó borrar tenia reservas hechas. Se deshabilitó la publicación.");
     }
 } else {
     alert("Hubo un problema en el envio de datos.");

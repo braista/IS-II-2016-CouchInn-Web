@@ -36,7 +36,7 @@
                             $userid= getUserID();
                         ?>
                         <div id="registerSection">
-                            <form name="couch" action="addCouch.php" method="POST" onsubmit="return couchFormValidation();" enctype="multipart/form-data">
+                            <form name="couch" action="addCouch.php" method="POST" onsubmit="return formValidation('couch');" enctype="multipart/form-data">
                                 <div id="formItem">
                                     <div class="formLabel">
                                         <label>Título:</label>
