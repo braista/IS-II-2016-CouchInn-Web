@@ -52,6 +52,6 @@ $result= mysqli_query($link, $query);
         $i++;
     }
 
-redirectAfter("editCouch.php?id=$couchid", 1);
+redirectAfter("editCouch.php?id=$couchid", 5);
 ?>
 

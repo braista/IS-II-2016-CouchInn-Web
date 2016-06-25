@@ -21,7 +21,7 @@ function deleteFolder($folder){
 
     function redirectAfter($url, $seconds){
         sleep($seconds);
-	redirect($url);
+        redirect($url);
     }
     
     function alert($text){
@@ -33,8 +33,8 @@ function deleteFolder($folder){
             redirect($url);
 }
 function redirectWithAlertAfter($url, $text, $seconds) {
-            alert($text);
-            redirectAfter($url, $seconds);
+            sleep($seconds);
+            redirectWithAlert($url, $text);
 }
     
     function checkAuth() {
