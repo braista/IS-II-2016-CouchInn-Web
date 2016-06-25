@@ -1,40 +1,40 @@
 <html>
-        <head> 
-            <script type="text/javascript" src="/functions.js"></script>                       
-       		<link rel="stylesheet" href="CSS/main.css">               
-            <script src="jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
-		  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-        	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        	<?php 
-                include_once 'functions.php';
-                $link=  connect();
-            ?>  
-        	<title>CouchInn - Reservas</title>
+    <head> 
+        <script type="text/javascript" src="/functions.js"></script>                       
+       	<link rel="stylesheet" href="CSS/main.css">               
+        <script src="jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <?php 
+        include_once 'functions.php';
+        $link=  connect();
+        ?>  
+        <title>CouchInn - Reservas</title>
 	</head>
 		<body>
 			<!-- HEADER -->
 			<header>		
                 <?php
-                    show('header');
+                show('header');
                 ?>
 			</header>
 	       <!-- CONTENEDOR-->
 			<div id="contenedor">
-                <?php echo '<div id="backButton">
-                                <a id="backButton" class="fade" href="javascript:history.back()">◄ Atrás</a>
-                            </div>';
-                ?> 
+                <div id="backButton">
+                    <a id="backButton" class="fade" href="javascript:history.back()">◄ Atrás</a>
+                </div>
                 <div id="content">
                     <div id="title">
                     <?php
-                    if (isset($_REQUEST['couch'])) {
-                        $couchId = $_REQUEST['couch'];
-                        $link = connect();
-                        $SQL = "SELECT * FROM couchs WHERE idcouch = '$couchId'";
-                        $result = mysqli_query($link, $SQL); 
+                    if(count($_POST) != 0){
+                        $couchID= $_POST["couchID"];
+                        $query= "SELECT * FROM couchs WHERE idcouch = '$couchID'";
+                        $result = mysqli_query($link, $query); 
                         $row = mysqli_fetch_array($result);
                         $titulo = $row['titulo'];
-                    }
+                    }else{
+                        
+                    }                    
                     echo'<p>Solicitudes para '.$titulo.'</p>
                     ';
                     ?>
@@ -47,26 +47,25 @@
                                 <td>Hasta</td>
                             </tr>
                             <?php  
-                            if (isset($_REQUEST['couch'])) {
-                                $couchId = $_REQUEST['couch'];
-                                $link = connect();
-                                $SQL = "SELECT * FROM reservas WHERE idcouch = '$couchId' AND idestado = 0";
+                            if (isset($_POST["couchID"])) {
+                                $SQL = "SELECT * FROM reservas WHERE idcouch = '$couchID' AND idestado = '1'";
                                 $result = mysqli_query($link, $SQL);
-                            } 
-                            while ($row = mysqli_fetch_array($result)) {
-                                $id = $row['idusuario'];
-                                $usuario =getUserName($id);
-                                $personas = $row['cantidad'];
-                                $desde = $row['fecha_inicio'];
-                                $hasta = $row['fecha_fin'];
-                                echo'<tr class="listItem">';
-                                echo '<td class="item">'.$usuario.'</td>';
-                                echo '<td class="item">'.$personas.'</td>';                        
-                                echo '<td class="item">'.$desde.'</td>';
-                                echo '<td class="item">'.$hasta.'</td>';
-                                echo'</tr>';
+                             
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $id = $row['idusuario'];
+                                    $usuario =getUserName($id);
+                                    $personas = $row['cantidad'];
+                                    $desde = $row['fecha_inicio'];
+                                    $hasta = $row['fecha_fin'];
+                                    echo'<tr class="listItem">';
+                                    echo '<td class="item">'.$usuario.'</td>';
+                                    echo '<td class="item">'.$personas.'</td>';                        
+                                    echo '<td class="item">'.$desde.'</td>';
+                                    echo '<td class="item">'.$hasta.'</td>';
+                                    echo'</tr>';
+                                }                                
                             }
-                            echo'</table>';  
+                            echo'</table>'; 
                             ?>      
                 </div>
 			</div>

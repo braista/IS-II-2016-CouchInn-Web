@@ -66,6 +66,18 @@ function redirectWithAlertAfter($url, $text, $seconds) {
             $userid= 0;
 		return $userid;
 	}
+    function getUserName($userID){
+        $link= connect();
+        if($userID != 0){
+            $SQL= "SELECT nombre, apellido FROM usuarios WHERE idusuario='$userID'";
+            $result= mysqli_query($link, $SQL);
+            $row= mysqli_fetch_array($result);
+            $name= $row["nombre"];
+            $apellido= $row["apellido"];
+            return "$name $apellido";
+        } else
+            return "";
+    }
 	function getUserType($userid) {
 		$link= connect();
         if($userid != 0){
@@ -114,7 +126,7 @@ function redirectWithAlertAfter($url, $text, $seconds) {
 			return false;
 	}
     function connect(){
-		$link = mysqli_connect('localhost', 'bys', 'google', 'bdatos') or die("Error". mysqli_error($link));
+		$link = mysqli_connect('localhost', 'root', '', 'bd') or die("Error". mysqli_error($link));
 //      $link = mysqli_connect('mysql.hostinger.com.ar', 'u278563399_bys', 'google', 'u278563399_bd') or die("Error". mysqli_error($link));
         return $link;
     }
