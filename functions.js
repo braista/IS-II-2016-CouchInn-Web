@@ -24,7 +24,7 @@ function confirmCancelAndRedirect(text, url){
 
 function confirmCancelEditCouch(){
     if(confirm("¿Cancelar la modificación del couch?")){
-        redirect("cpanel.php");
+        history.back();
     }
 }
 
