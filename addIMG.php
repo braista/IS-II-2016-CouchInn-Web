@@ -26,7 +26,7 @@
                 $query= "INSERT INTO imagenes (imagen, idcouch) VALUES ('$path', '$couchID')";
                 $result= mysqli_query($link, $query);
                 if($result)
-                    redirectAfter("editCouch.php?id=$couchID", 1);
+                    redirectAfter("editCouch.php?id=$couchID", 5);
                 else{
                     alert("Hubo en error en la inserción de la IMG en la BD.");
                     back();
