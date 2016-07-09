@@ -14,7 +14,7 @@
             include_once 'functions.php';
             $link=  connect();
         ?>  
-        <title>CouchInn - Modificar couch</title>
+        <title>CouchInn - Modificar información couch</title>
 	</head>
 		<body>
 			<!-- HEADER -->
@@ -28,14 +28,11 @@
                         <!-- CONTENEDOR-->
 			<div id="contenedor">
                 <div id="content">
-                    <div id="back">
-                        <a id="backButton" class="fade" href="cpanel.php">◄ Atrás</a>
-                    </div>
                     <div id="info">
                         <div id="title">
-                            <p>Modificar publicación</p>
+                            <p>Modificar datos de publicación</p>
                         </div>
-                        <p style="clear: both; text-indent: 1%;">Modifica la publicación de tu couch en el siguiente formulario. No es necesario aplicar los cambios para modificar las imágenes.</p>
+                        <p style="clear: both; text-indent: 1%;">Modifica la información del couch a mostrar en la publicación.</p>
                         <?php
                             if(isset($_GET['id']) && $_GET['id'] != ""){
                                 $couchid= $_GET['id'];
@@ -50,25 +47,18 @@
                                     //CONSULTA TIPO DE COUCHS DISPONIBLES PARA ELEGIR
                                     $query= "SELECT * FROM tipocouchs ORDER BY nombre";
                                     $result= mysqli_query($link, $query);
-                                    //CONSULTA IMAGENES DE LA PUBLICAZAO
-                                    $query= "SELECT * FROM imagenes WHERE idcouch='$couchid' ORDER BY imagen ASC";                                    
-                                    $imgResult= mysqli_query($link, $query);
-                                    $imgamount= mysqli_num_rows($imgResult);
                                 }
                             }
                             
                         ?>
                         <div id="registerSection">
-                            <div id="sub">
-                                <p id="subtitle">Información del Couch:</p>
-                            </div>
-                            <form name="couch" action="editCouchInfo.php" method="GET">
+                            <form name="couch" action="updateCouch.php" method="POST" onsubmit="return formValidation('couch');" >
                                 <div id="formItem">
                                     <div class="formLabel">
                                         <label>Titulo:</label>
                                     </div>
                                     <div class="formInput">
-                                        <?php echo $couchRow['titulo'];?>
+                                        <input type="text" name="title1" id="title1" maxlength="25" minlength="4" placeholder="Título de la publicación" value="<?php echo $couchRow['titulo'];?>">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -76,7 +66,7 @@
                                         <label>Capacidad:</label>
                                     </div>
                                     <div class="formInput">
-                                        <?php echo $couchRow['capacidad'];?>
+                                        <input type="text" name="capacity" id="capacity" maxlength="2" placeholder="Capacidad máxima de huéspedes" value="<?php echo $couchRow['capacidad'];?>">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -84,7 +74,7 @@
                                         <label>Lugar:</label>
                                     </div>
                                     <div class="formInput">
-                                        <?php echo $couchRow['lugar'];?>
+                                        <input type="text" name="place" id="place" placeholder="Lugar donde se encuentra" value="<?php echo $couchRow['lugar'];?>">
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -92,7 +82,18 @@
                                         <label>Tipo:</label>
                                     </div>
                                     <div class="formInput">
-                                        <?php echo $couchRow['idtipocouch'];?>
+                                        <select name="type" id="type">
+                                            <?php
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                    $value= $row['idtipocouch'];
+                                                    $name= $row['nombre'];
+                                                    if($value == $couchRow['idtipocouch'])
+                                                        echo '<option value="'.$value.'" selected>'.$name.'</option>';
+                                                    else
+                                                        echo '<option value="'.$value.'">'.$name.'</option>';
+                                                }
+                                            ?>
+                                        </select>                                        
                                     </div>
                                 </div>
                                 <div id="formItem">
@@ -102,9 +103,9 @@
                                     <div class="formInput">
                                         <?php
                                         if($couchRow['habilitado'] == 1)
-                                            echo 'Habilitado';
+                                            echo '<input type="checkbox" name="enable" id="enable" checked>';
                                         else
-                                            echo 'Deshabilitado';
+                                            echo '<input type="checkbox" name="enable" id="enable">';
                                         ?>
                                     </div>
                                 </div>
@@ -113,50 +114,15 @@
                                         <label>Descripción:</label>
                                     </div>
                                     <div class="formInput">
-                                        <?php echo $couchRow['descripcion'];?>
+                                        <textarea name="description" id="description" placeholder="Descripción de la publicación"><?php echo $couchRow['descripcion'];?></textarea>
                                     </div>
-                                </div>
-                                <input type="hidden" name="id" value="<?php echo $couchRow['idcouch'];?>">
-                                <div id="infoSubmit">
-                                    <input type="submit" id="button" value="Modificar informacion">
+                                </div>                                
+                                <input type="hidden" name="couchid" value="<?php echo $couchid; ?>">
+                                <div id="couchSubmit">
+                                    <input type="submit" id="button" value="Modificar">
+                                    <input type="button" id="button" value="Cancelar" onclick="confirmCancelEditCouch(<?php echo $couchid; ?>)">
                                 </div>
                             </form>
-                            <form name="couch" action="editCouchIMG.php" method="GET">
-                                <div id="formFiles">
-                                    <div class="imgLabel">
-                                        <label>Imágenes:</label>
-                                    </div>
-                                    <div id="gallery">
-                                        <?php
-                                        if($imgamount == 1){
-                                            $imgRow = mysqli_fetch_array($imgResult);
-                                            echo'<div id="galleryIMG">';
-                                            echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=70px height=70px ></a></td>';
-                                            echo'</div>';
-                                        }else {
-                                            //SE MUESTRA IMG PRIMARIA
-                                            $imgRow = mysqli_fetch_array($imgResult);
-                                            $primaryIMG= $imgRow["idimagen"];
-                                            echo'<div id="galleryIMG">';
-                                            echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=70px height=70px ></a></td>';
-                                            echo'</div>';
-                                            while ($imgRow = mysqli_fetch_array($imgResult)) {
-                                                echo'<div id="galleryIMG">';
-                                                echo'<td class="item"><a href="img/'.$imgRow["imagen"].'" rel="lightbox"><img src="img/'.$imgRow["imagen"].'" width=70px height=70px ></a></td>';
-                                                echo'</div>';
-                                            }
-                                        }
-                                        ?>
-                                    </div>                                        
-                                </div>
-                                <input type="hidden" name="id" value="<?php echo $couchid; ?>">
-                                <div id="imgSubmit">
-                                    <input type="submit" id="button" value="Modificar imagenes">
-                                </div>
-                            </form>
-                            <script>
-                                validateInputFile();
-                            </script>
                         </div>
                     </div>
                 </div>

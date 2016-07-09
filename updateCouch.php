@@ -17,7 +17,7 @@ if(count($_POST) !=0){
     $query="UPDATE couchs SET titulo='$title', capacidad='$capacity', lugar='$place', idtipocouch='$type', habilitado='$enable', descripcion='$description' WHERE idcouch='$couchID'";
     $result= mysqli_query($link, $query);
     if($result){
-        redirectAfter("cpanel.php?edit", 1);
+        redirectAfter("editCouch.php?id=$couchID", 1);
     }else{
         alert("Hubo un error en la modificación de la publicación. Pulse aceptar para volver.");
         back();

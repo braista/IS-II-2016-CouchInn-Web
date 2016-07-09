@@ -34,7 +34,10 @@
                     <div id="backmenu">
                         <div id="backmenuItem">
                             <a href="newCouch.php" id="button">Agregar couch</a>
-                        </div>        
+                        </div>
+                        <div id="backmenuItem">
+                            <a href="sentRequests.php" id="button">Solicitudes enviadas</a>
+                        </div>
                     </div>
                     <?php
                         $userid= getUserID();
@@ -42,8 +45,8 @@
                         $result= mysqli_query($link, $SQL);
                         $ok = (mysqli_num_rows($result)>0);
                     ?>
-                    <div id="subtitle">
-                        <p class="subtitle">Mis couchs</p>
+                    <div id="sub">
+                        <p id="subtitle">Mis couchs</p>
                     </div>
                     <?php
                     // CARTEL DE MODIFICACION CORRECTA Y CODIGO JQUERY PARA OCULTAR EN CASO DE CLICK

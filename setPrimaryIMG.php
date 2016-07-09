@@ -43,7 +43,7 @@ if((isset($_GET["primary"]) && $_GET["primary"] != "") &&
     $query="UPDATE imagenes SET imagen='$old' WHERE idimagen='$newID'";
     mysqli_query($link, $query);
     
-    redirectWithAlertAfter("editCouch.php?id=$couchID", "Se ingreso correctamente la nueva imagen de portada.", 5);
+    redirectAfter("editCouchIMG.php?id=$couchID", 5);
 }else{
     alert("No se recibieron correctamente los datos enviados.");
     back();

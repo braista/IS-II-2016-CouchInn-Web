@@ -20,18 +20,21 @@
 			?>       
 		</header>
 		<div id="contenedor">
-		<?php
 
-			echo'<div id="backButton">
-			<a class="fade" href="listado.php">◄ Atrás</a></br>
+			<div id="backButton">
+				<a class="fade" href="listado.php">◄ Atrás</a></br>
 			</div>
-			<form class="backend_container" style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="return confirmacionA();">
-			<span>Nombre: </span>
-			<input type="text" class="texto_biselado" maxlength="18" name="tipohospedaje" id="tipohospedaje" required>
-			<input type="hidden" name="agregar" value="ok_hospedaje">
-			<button id="button" style="margin:10px" type="submit" value="agregar">Agregar</button>
-			</form>';
 
+			<div id="add_tipo">
+				<form class="backend_container" style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="return confirmacionA();">
+					<span>Nombre: </span>
+					<input type="text" class="texto_biselado" maxlength="18" name="tipohospedaje" id="tipohospedaje" required>
+					<input type="hidden" name="agregar" value="ok_hospedaje">
+					<button id="button" style="margin:10px" type="submit" value="agregar">Agregar</button>
+				</form>
+			</div>
+			
+		<?php
 //Luego, si ya se mandó a agregar un hospedaje
 		if(isset($_REQUEST['agregar'])and($_REQUEST['agregar'])=='ok_hospedaje'){
 			$tipohospedaje=$_REQUEST['tipohospedaje'];
@@ -55,12 +58,12 @@
 					echo '<p> Ya se dispone de un hospedaje de ese mismo tipo, verifique los datos y vuelva a intentarlo <img src="img/error.png" width="15px" height="15px"></p>';
 			}		
 		}		
-		?>
+		?>		
 	</div>
 	<footer>
-        <div id="footer">
-            CouchInn © 2016
-        </div>
-    </footer>
+            <?php    
+                show('footer');
+            ?>
+        </footer>
     </body>
 </html>

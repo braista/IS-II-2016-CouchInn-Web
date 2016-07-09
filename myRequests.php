@@ -16,14 +16,15 @@
 			<header>		
                 <?php
                 show('header');
+                $couchID= $_POST["couchID"];
                 ?>
 			</header>
 	       <!-- CONTENEDOR-->
 			<div id="contenedor">
-                <div id="backButton">
-                    <a id="backButton" class="fade" href="javascript:history.back()">◄ Atrás</a>
-                </div>
-                <div id="content">
+                <div id="content">                    
+                    <div id="backButton">
+                        <a id="backButton" class="fade" href="show.php?id=<?php echo $couchID;?>">◄ Atrás</a>
+                    </div>
                     <div id="title">
                     <?php
                     if(count($_POST) != 0){

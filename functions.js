@@ -22,9 +22,9 @@ function confirmCancelAndRedirect(text, url){
         redirect(url);
 }
 
-function confirmCancelEditCouch(){
+function confirmCancelEditCouch(id){
     if(confirm("¿Cancelar la modificación del couch?")){
-        history.back();
+        redirect("editCouch.php?id="+id);
     }
 }
 

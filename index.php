@@ -22,23 +22,69 @@
 
 		<!-- CONTENEDOR-->
 		<div id="contenedor">
-			
-            <!-- BUSCADOR GLOBAL -->
-<!--            <div id="buscador">
-                <div id="buscadorForm">
-                    <form action="search.php" method="POST" name="searcher" onsubmit="return formValidation('search')">
-                        <input type="text" name="tag" placeholder="Ingresar titulo o tipo de couch">
-                        <input type="submit" value="BUSCAR" id="button">
-                    </form>
-                </div>			
-            </div>-->
+		  <div id="search_container">
+                <span class="caja_search">
+                <!--Filtro por nombre-->
+                    <form class="search_form,form center" name="search" id="search" action="index.php" method="POST">
+                         Nombre:
+                        <input type="text" id="search" name="search" maxlength="15" placeholder="Nombre del couch que busca" required>
+                        <button id="button" style="margin:10px" type="submit" value="Ir">Buscar</button>
+                     </form>
+                    <form class="search_form,form center" name="search" id="search" action="advanced_search.php" method="GET">
+                        <button id="button" style="margin:10px" type="submit" value="advanced_search">Busqueda Avanzada</button>
+                    </form>   
+                </span>
+            </div>
 
             <div id="content"> 							
-				<?php
-					loadCouchs('null', $link);
+				<?php 
+                    if (isset($_REQUEST['name'])){
+                        $row['name']=$_REQUEST['name'];
+                        $name=$row['name'];
+                        $row['place']=$_REQUEST['place'];
+                        $place=$row['place'];
+                        $row['capacity']=$_REQUEST['capacity'];
+                        $capacity=$row['capacity'];
+                        $row['description']=$_REQUEST['description'];
+                        $description=$row['description'];
+                        $row['tipoH']=$_REQUEST['hosp_id'];
+                        $tipo=$row['tipoH'];
+                        //$row['fechaI']=$_REQUEST['fechaI'];
+                        //$fechaI=$row['fechaI'];
+                        //$row['fechaF']=$_REQUEST['fechaF'];
+                        //$fechaF=$row['fechaF'];
+                        echo'<a href="index.php" id="button">Volver</a>';
+                        echo '<table>
+                            <tr>';
+                        $str="<td><h4>Filtrado por: </h4></td>";
+                        echo $str;
+                        if ($name!='0' and $name!='')
+                            echo '<td>Nombre: '.$name.'</td>';
+                        if ($place!='0' and $place!='')
+                            echo '<td>Lugar: '.$place.'</td>';
+                        if ($capacity!='0' and $capacity!='')
+                            echo '<td>Capacidad: '.$capacity.'</td>';
+                        if ($description!='0' and $description!='')
+                            echo '</tr>/<tr><td>Descripción: '.$description.'</td>';
+                        if ($tipo!='0' and $tipo!=''){
+                            $result2= mysqli_query($link, "SELECT * FROM tipocouchs WHERE idtipocouch='$tipo'");
+                            $row2=mysqli_fetch_array($result2);
+                            echo '<td>Tipo De Hospedaje: '.$row2['nombre'].'</td>';
+                        }
+                        echo '</tr>
+                            </table>';
+                       loadCouchs($row,$link);
+                    }
+                    elseif(isset($_REQUEST["search"])){
+                        $palabra=$_REQUEST["search"];
+                        echo'<a href="index.php" id="button">Volver</a>';
+                        loadCouchs($palabra, $link);
+                    }
+                    else
+                        loadCouchs('null', $link);
 				?>
             </div>
-		</div>
+        </div>
         <footer>
             <?php    
                 show('footer');

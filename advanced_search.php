@@ -79,19 +79,7 @@
                             <textarea name="description" id="description" placeholder="Descripción de la publicación"></textarea>
                         </div>
                     </div>
-                    <div id="formItem">
-                        <div class="formInput">
-                            <label>Fecha en la que quiere Hospedarse:</label>
-                            <?php $date=date_create() ?>
-                            <input type="date"  min="<?php echo date("Y-m-d"); ?>" name="fechaI">
-                        </div>
-                    </div>
-                    <div id="formItem">
-                        <div class="formInput">
-                             <label>Hasta:</label>
-                            <input type="date" min="<?php echo date("Y-m-d"); ?>" name="fechaF">
-                        </div>
-                    </div>
+                    
                 </div>
                 <div id="couchSubmit">
                     <button id="button" type="submit" value="Ver">BUSCAR</button>

@@ -29,7 +29,7 @@
             @move_uploaded_file($tmp, "img/".$path);
             $query= "UPDATE imagenes SET imagen='$path' WHERE idimagen='$imgID'";
             mysqli_query($link, $query);
-            redirectAfter("editCouch.php?id=$couchid", 5);            
+            redirectAfter("editCouchIMG.php?id=$couchid", 5);            
         } else{
             alert("La imagen tiene un formato inválido.");
             back();           

@@ -21,7 +21,7 @@ function deleteFolder($folder){
 
     function redirectAfter($url, $seconds){
         sleep($seconds);
-        redirect($url);
+	redirect($url);
     }
     
     function alert($text){
@@ -33,8 +33,8 @@ function deleteFolder($folder){
             redirect($url);
 }
 function redirectWithAlertAfter($url, $text, $seconds) {
-            sleep($seconds);
-            redirectWithAlert($url, $text);
+            alert($text);
+            redirectAfter($url, $seconds);
 }
     
     function checkAuth() {
@@ -66,6 +66,7 @@ function redirectWithAlertAfter($url, $text, $seconds) {
             $userid= 0;
 		return $userid;
 	}
+
     function getUserName($userID){
         $link= connect();
         if($userID != 0){
@@ -78,6 +79,7 @@ function redirectWithAlertAfter($url, $text, $seconds) {
         } else
             return "";
     }
+
 	function getUserType($userid) {
 		$link= connect();
         if($userid != 0){
@@ -125,70 +127,102 @@ function redirectWithAlertAfter($url, $text, $seconds) {
 		else 			
 			return false;
 	}
+
     function connect(){
-		$link = mysqli_connect('localhost', 'root', '', 'bd') or die("Error". mysqli_error($link));
-//      $link = mysqli_connect('mysql.hostinger.com.ar', 'u278563399_bys', 'google', 'u278563399_bd') or die("Error". mysqli_error($link));
+		$link = mysqli_connect('localhost', 'bys', 'google', 'bd') or die("Error". mysqli_error($link));
         return $link;
     }
-        function loadCouchs($option, $link) {
-                if($option == 'null'){
-                        echo'
-                                <table class="table">
-					<tr>	
-						<td>Imagen</td>
-						<td>Titulo</td>
-						<td>Tipo</td>
-						<td>Capacidad</td>
-						<td>Puntaje</td>
-						<td>Lugar</td>
-					</tr>
-                        ';
-			$SQL = "SELECT * FROM couchs AS c LEFT JOIN tipocouchs AS tc ON c.idtipocouch=tc.idtipocouch";
-			$result = mysqli_query($link, $SQL);            
-			if (mysqli_num_rows($result) != 0){
-				while ($row = mysqli_fetch_array($result)) {
-                                        if($row['habilitado'] == 1){
-                                                $userid= $row['idusuario'];	
-                                                $couchid= $row['idcouch'];
-                                                // CONSULTA TIPO DE USUARIOS
-                                                $usertype= getUserType($userid);
-
-                                                //CONSULTA DE IMAGEN PRINCIPAL
-                                                $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid";
-                                                $result2= mysqli_query($link, $SQL);
-                                                if (mysqli_num_rows($result2) != 0){
-                                                        $imgRow= mysqli_fetch_array($result2);
-                                                        $okimg= true;
-                                                }else{
-                                                        $okimg= false;
-                                                }                                                
-                                                echo'<tr class="listItem">';
-                                                if($usertype == 1)
-                                                        echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/couchinn.png" width=80px height=80px ></a></td> ';
-                                                else{
-                                                        if($okimg)
-                                                                echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/'.$imgRow["imagen"].'" width=80px height=80px ></a></td>';
-                                                        else 	
-                                                                echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/null.png" width=80px height=80px ></a></td>';
-                                                }
-                                                echo '<td class="item"><a href="show.php?id='.$row[0].'">'.$row["titulo"].'</a></td>';
-                                                echo '<td class="item">'.$row["nombre"].'</td>';
-                                                echo '<td class="item">'.$row["capacidad"].'</td>';                        
-                                                echo '<td class="item">'.$row["puntaje"].'</td>';
-                                                echo '<td class="item">'.$row["lugar"].'</td>';
-                                                echo'</tr>';
-                                        }
-				}						
-				echo'</table>';
-			} else {
-				echo '
-					</table>
-					<div id="tableError">
-						<p>No se encontraron resultados.</p>
-					</div>';
-			}
+    
+    function loadCouchs($option, $link){
+        if (is_array($option)){
+            $nom=$option['name'];
+            $cap=$option['capacity'];
+            $place=$option['place'];
+            $desc=$option['description'];
+            $tipoH=$option['tipoH'];
+            //$fechaI=$option['fechaI'];
+            //$fechaF=$option['fechaF'];
+            $SQL = "SELECT * FROM couchs";
+            if ($cap!=0){
+                $SQL=$SQL." WHERE capacidad BETWEEN $cap and '99' AND titulo LIKE '%$nom%' AND descripcion LIKE '%$desc%' AND lugar LIKE '%$place%'";
+            }else
+                $SQL =$SQL." WHERE titulo LIKE '%$nom%' AND descripcion LIKE '%$desc%' AND lugar LIKE '%$place%'";
+            
+            if($tipoH!=0){
+                $SQL=$SQL." AND idtipocouch='$tipoH'";
+                $result2= mysqli_query($link, "SELECT * FROM tipocouchs WHERE idtipocouch='$tipoH'");
+                $row2=mysqli_fetch_array($result2);
+            }else{
+                $result2= mysqli_query($link, "SELECT * FROM tipocouchs");
+                $row2=mysqli_fetch_array($result2);
+            }
+        }//fin de la busqueda avanzada
+         if(($option != 'null') and (!is_array($option))){
+            $SQL = "SELECT * FROM couchs WHERE titulo LIKE '%$option%'";
+            $result3 = mysqli_query($link, "SELECT * FROM tipocouchs");
+            $row2 = mysqli_fetch_array($result3);
+        }elseif ($option=='null') 
+            $SQL = "SELECT * FROM couchs AS c LEFT JOIN tipocouchs AS tc ON c.idtipocouch=tc.idtipocouch";               
+        echo' <table class="table">
+            <tr>    
+            <td>Imagen</td>
+            <td>Titulo</td>
+            <td>Tipo</td>
+            <td>Capacidad</td>
+            <td>Puntaje</td>
+            <td>Lugar</td>
+            </tr>';
+        $result = mysqli_query($link,$SQL);
+        if (mysqli_num_rows($result) != 0){
+                while ($row = mysqli_fetch_array($result)) {
+                    if($row['habilitado'] == 1){
+                       $userid= $row['idusuario']; 
+                       $couchid= $row['idcouch'];
+                       // CONSULTA TIPO DE USUARIOS
+                       $usertype= getUserType($userid);
+                        //CONSULTA DE IMAGEN PRINCIPAL
+                        $SQL= "SELECT * FROM imagenes WHERE idcouch=$couchid";
+                        $result2= mysqli_query($link, $SQL);
+                        if (mysqli_num_rows($result2) != 0){
+                           $imgRow= mysqli_fetch_array($result2);
+                           $okimg= true;
+                        }else
+                            $okimg= false;                                
+                                                                    
+                        echo'<tr>';
+                        if($usertype == 1)
+                             echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/couchinn.png" width=80px height=80px ></a></td> ';
+                         else{
+                            if($okimg)
+                               echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/'.$imgRow["imagen"].'" width=80px height=80px ></a></td>';
+                             else    
+                                echo'<td class="item"><a href="show.php?id='.$row[0].'"><img src="img/null.png" width=80px height=80px ></a></td>';
+                             }
+                            echo '<td class="item"><a href="show.php?id='.$row[0].'">'.$row["titulo"].'</a></td>';
+                            if ($option=='null')
+                                echo '<td class="item">'.$row["nombre"].'</td>';
+                            else{
+                                $idtipo=$row['idtipocouch'];
+                                $result2= mysqli_query($link, "SELECT * FROM tipocouchs WHERE idtipocouch='$idtipo'");
+                                $row2=mysqli_fetch_array($result2);
+                                echo '<td class="item">'.$row2["nombre"].'</td>';
+                            }
+                            echo '<td class="item">'.$row["capacidad"].'</td>';                        
+                            echo '<td class="item">'.$row["puntaje"].'</td>';
+                            echo '<td class="item">'.$row["lugar"].'</td>';
+                            echo'</tr>';
+                    
                 }
-        }
+            }                       
+                echo'</table>';
+            }else {
+                echo '
+                    </table>
+                    <div id="tableError">
+                        <p>No se encontraron resultados.</p>
+                    </div>';
+            }
+                }
 	
 	function show($option) {
         switch ($option) {
@@ -219,7 +253,7 @@ function redirectWithAlertAfter($url, $text, $seconds) {
                                 if($okauth)
                                         echo '<a href="profile.php" class="fade">MI PERFIL</a>';
                                 if($usertype == 3)
-                                        echo '<a href="backend.php" class="fade">BACKEND</a>';
+                                        echo '<a href="backend.php" class="fade">ADMIN</a>';
                                 echo'
                             </div>								
                         </div>

@@ -70,7 +70,6 @@
                                 
                                 <input type="hidden" name="couchID" value="<?php echo $couchID; ?>">
                                 <input type="hidden" name="userID" value="<?php echo $userID; ?>">
-                                <input type="hidden" name="maxAmount" id="maxAmount" value="<?php echo $maxAmount; ?>">
                                                                                                                                                    
                                 <div id="loginSubmit">
                                     <input type="submit" id="button" value="Confirmar">
