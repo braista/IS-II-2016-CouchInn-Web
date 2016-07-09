@@ -31,7 +31,7 @@
                 $SQL= "SELECT * FROM usuarios u LEFT JOIN tipousuarios tu ON u.idtipousuario=tu.idtipousuario WHERE idusuario=$userid";
                 $result = mysqli_query($link, $SQL);
                 $userRow= mysqli_fetch_array($result);
-                $bdate= date('d m Y', strtotime($userRow['fnacimiento']));
+                $bdate= date('d/m/Y', strtotime($userRow['fnacimiento']));
             ?>
             <div id="content">
                 <div id="back">

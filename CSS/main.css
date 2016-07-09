@@ -269,10 +269,12 @@ td form{
     float: left;
     border-bottom: 1px solid grey;
     font-weight: bold;
+    margin: 0;
 }
 #sub{
     margin-left: 2%;
     margin-bottom: 1%;
+    overflow: hidden;
 }
 .subtitle{
     font-size: 120%;
@@ -394,11 +396,31 @@ td form{
     max-width: 100%;
     max-height: 25%;
     font-family: tahoma;
+    margin-bottom: 1%;    
+    resize: none;
 }
+
+.qname{
+    font-size: 75%;
+    font-weight: bold;
+    margin: 0;
+}
+
+.qtext{
+    font-size: 80%;
+    margin: 0;
+}
+
+.qdate{
+    font-size: 65%;
+    margin: 0;
+}
+
 #questionItem{
     border: 1px solid grey;
     background-color: rgba(195, 192, 192, 0.28);
     margin-bottom: 1%;
+    text-indent: 1%;
 }
 
 /*MODIFICAR PERFIL*/
@@ -741,5 +763,29 @@ td form{
     width: 55%;
     margin: auto;
     text-align: center;
+    overflow: hidden;
+}
+
+/*SOLICITUDES ENVIADAS*/
+
+.pendingItem{
+    background-color: rgba(255, 234, 0, 0.62);
+    border-radius: 10px 10px 10px 10px;
+}
+
+.acceptedItem{
+    background-color: rgba(173, 255, 47, 0.67);
+    border-radius: 10px 10px 10px 10px;
+}
+
+.rejectedItem{
+    background-color: rgba(255, 0, 0, 0.63);
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* VER PERFIL */
+
+#profileDetails{
+    width: 100%;
     overflow: hidden;
 }

@@ -8,7 +8,7 @@ if(count($_POST) != 0){
     $couchID= $_POST["couchID"];
     $userID= $_POST["userID"];
     
-    $query= "INSERT INTO reservas (fecha_inicio, fecha_fin, cantidad, idusuario, idcouch, idestado) VALUES('$fdate', '$tdate', '$amount', '$couchID', '$userID', 1)";
+    $query= "INSERT INTO reservas (fecha_inicio, fecha_fin, cantidad, idusuario, idcouch, idestado) VALUES('$fdate', '$tdate', '$amount', '$userID', '$couchID', 1)";
     $result= mysqli_query($link, $query);
     if($result)
         redirectWithAlert("show.php?id=$couchID", "La solicitud de reserva se realizó correctamente. Pulse aceptar para volver a la publicación.");

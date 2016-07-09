@@ -122,15 +122,14 @@
                     <?php
                         }
                     ?>
-                        <!-- SECCIÓN PREGUNTAS --!>
-                        
-<!--                    <div id="questions">
-                        <div id="subtitle">
-                            <p class="subtitle">• Preguntas</p>
+<!--                         SECCIÓN PREGUNTAS-->                        
+                    <div id="questions">
+                        <div id="sub">
+                            <p id="subtitle">Preguntas</p>
                         </div>
                         <?php
                             // CARTEL DE MODIFICACION CORRECTA Y CODIGO JQUERY PARA OCULTAR EN CASO DE CLICK
-//                            if(isset($_GET['ok']) && $_GET['ok']== 'true'){ ?>
+                            if(isset($_GET['ok']) && $_GET['ok']== 'true'){ ?>
                                 <div id="okQuestion" class="ok">
                                     <img src="img/ok.png" class="okImg">
                                     <p class="noMargin">La pregunta se publicó correctamente.</p>
@@ -138,46 +137,46 @@
                                 <script>
                                     hideDivBlur('#okQuestion');
                                 </script>
-                            //<?php
-//                                }
-//                            ?>
-                        //<?php
-//                            if($userid != 0){
-//                        ?>        
+                            <?php
+                                }
+                            ?>
+                        <?php
+                            if($userid != 0 && $userid != $ownerid){                        ?>        
                                 <div id="questionForm">
                                     <form name="question" method="POST" action="question.php" onsubmit="return sendQuestion()">                                        
-                                        <input type="hidden" name="questionerid" value="//<?php //echo $userid; ?>">
-                                        <input type="hidden" name="couchid" value="//<?php //echo $couchid; ?>">
+                                        <input type="hidden" name="questionerID" value="<?php echo $userid; ?>">
+                                        <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
                                         <textarea name="questionBox" class="questionBox" onfocus="openQuestionBox()" onblur="closeQuestionBox()" 
                                             placeholder="Ingrese una pregunta para el dueño de la publicacion..." maxlength="150"></textarea><br>
                                         <input type="submit" id="button" name="questionButton" value="Preguntar" style="display: none">                                                                        
                                     </form>                            
                                 </div>
-                        //<?php                        
-//                            } 
-//                        ?>
+                        <?php                        
+                            } 
+                        ?>
                         <div id="questionsList">
-                            //<?php                        
-//                                $SQL= "SELECT * FROM preguntas p LEFT JOIN usuarios u ON p.idusuario=u.idusuario WHERE idcouch=$couchid";
-//                                $result= mysqli_query($link, $SQL);
-//                                if(mysqli_num_rows($result)==0){ ?>
+                            <?php                        
+                                $SQL= "SELECT * FROM preguntas p LEFT JOIN usuarios u ON p.idusuario=u.idusuario WHERE idcouch='$couchid' ORDER BY fecha DESC";
+                                $result= mysqli_query($link, $SQL);
+                                if(mysqli_num_rows($result)==0){ ?>
                                     <div id="noQuestions">
-                                        <p>No realizaron preguntas todavía. Realizá una!</p>
+                                        <p>No realizaron preguntas todavía.</p>
                                     </div>
-                            //<?php
-//                                }else{
-//                                    while($qrow = mysqli_fetch_array($result)) {
-//                                        echo '<div id="questionItem">';
-//                                        echo'<p class="noMargin">'.$qrow["apellido"].' '.$qrow["nombre"].'</p>';
-//                                        echo '<p class="noMargin">('.$qrow["fecha"].')</p><br>';
-//                                        echo'<p class="noMargin">'.$qrow["texto"].'</p>';
-//                                        echo '</div>';
-//                                    }                                        
-//                                }                                                                        
-//                            ?>
+                            <?php
+                                }else{
+                                    while($qrow = mysqli_fetch_array($result)) {
+                                        echo '<div id="questionItem">';
+                                        echo'<p class="qname">'.$qrow["apellido"].' '.$qrow["nombre"].'</p>';
+                                        $date= date('d/m/Y - h:m', strtotime($qrow['fecha']));
+                                        echo '<p class="qdate">'.$date.'</p><br>';
+                                        echo'<p class="qtext">'.$qrow["texto"].'</p>';
+                                        echo '</div>';
+                                    }                                        
+                                }                                                                        
+                            ?>
                         </div>
                         
-                    </div>-->
+                    </div>
 				</div>
             </div>
 		</div>

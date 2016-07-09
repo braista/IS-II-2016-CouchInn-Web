@@ -79,6 +79,18 @@ function redirectWithAlertAfter($url, $text, $seconds) {
         } else
             return "";
     }
+    
+    function getOwnerID($couchID){
+        $link= connect();
+        if($couchID != 0){
+            $SQL= "SELECT idusuario FROM couchs WHERE idcouch='$couchID'";
+            $result= mysqli_query($link, $SQL);
+            $row= mysqli_fetch_array($result);
+            $userID= $row['idusuario'];
+            return $userID;
+        } else
+            return "";
+    }
 
 	function getUserType($userid) {
 		$link= connect();

@@ -258,7 +258,7 @@ function openQuestionBox(){
     setTimeout("openQuestionBox2()",200);
 }
 function openQuestionBox2(){
-    document.question.questionBox.style.height="25%";
+    document.question.questionBox.style.height="10%";
     document.question.questionButton.removeAttribute("style");
 }
 
