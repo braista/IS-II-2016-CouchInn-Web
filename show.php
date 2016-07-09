@@ -1,7 +1,6 @@
 <html>
     <head>
         <link rel="stylesheet" href="CSS/main.css">
-        <link rel="stylesheet" href="fonts/style.css">
         <script type="text/javascript" src="/functions.js"></script>
         <script src="jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
@@ -164,12 +163,68 @@
                                     </div>
                             <?php
                                 }else{
-                                    while($qrow = mysqli_fetch_array($result)) {
+                                    $i= 1;
+                                    while($qrow = mysqli_fetch_array($result)) {                                        
+                                        echo'<hr>';
                                         echo '<div id="questionItem">';
                                         echo'<p class="qname">'.$qrow["apellido"].' '.$qrow["nombre"].'</p>';
+                                        if(getUserID() == $qrow["idusuario"]){?>
+                                            <div id="deleteAnswerButton">
+                                                <form action="deleteQuestion.php" method="POST" onsubmit="return (confirm('¿Borrar la pregunta?'));">
+                                                    <input type="hidden" name="questionID" value="<?php echo $qrow['idpregunta'];?>">
+                                                    <input type="hidden" name="couchID" value="<?php echo $couchid;?>">
+                                                    <input type="image" value="Borrar" src="img/del.gif" width=10px height=10px>
+                                                </form>
+                                            </div>
+                                        <?php
+                                        }
                                         $date= date('d/m/Y - h:m', strtotime($qrow['fecha']));
-                                        echo '<p class="qdate">'.$date.'</p><br>';
-                                        echo'<p class="qtext">'.$qrow["texto"].'</p>';
+                                        echo '<p class="qdate">'.$date.'</p>';                                        
+                                        echo'<p class="qtext">'.$qrow["texto"].'</p>'; 
+                                        $questionID= $qrow['idpregunta'];
+                                        $query="SELECT * FROM respuestas WHERE idpregunta=$questionID";
+                                        $result2= mysqli_query($link, $query);
+                                        if(mysqli_num_rows($result2) != 0){
+                                            $answerRow= mysqli_fetch_array($result2);
+                                            $date= date('d/m/Y - h:m', strtotime($answerRow['fecha']));?>
+                                            <div id="answerItem">
+                                                <p class="qname"><?php echo getUserName($ownerid);?></p>                                                
+                                                <p class="noMargin" style="display: inline;font-size: 70%;">respondió</p>
+                                                <?php
+                                                if(getUserID() == $ownerid){?>
+                                                    <div id="deleteAnswerButton">
+                                                        <form action="deleteAnswer.php" method="POST" onsubmit="return (confirm('¿Borrar la respuesta?'));">
+                                                            <input type="hidden" name="answerID" value="<?php echo $answerRow['idrespuesta'];?>">
+                                                            <input type="hidden" name="couchID" value="<?php echo $couchid;?>">
+                                                            <input type="image" value="Borrar" src="img/del.gif" width=10px height=10px>
+                                                        </form>
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
+                                                <p class="qdate"><?php echo $date;?></p>
+                                                <p class="qtext"><?php echo $answerRow['texto'];?></p>
+                                            </div>
+                            <?php
+                                        } else if(getUserID() == $ownerid){?>
+                                            <div id="answerItem">
+                                                <a href="javascript:void(0)" id="showAnswerForm<?php echo $i;?>" class="button" onclick="showAnswerForm(<?php echo $i;?>)">Responder</a>                                                
+                                                <div id="questionForm<?php echo $i;?>" style="display:none">
+                                                    <p style="margin: 5px; font-size: 80%;">Responder:</p>
+                                                    <form name="answer<?php echo $i;?>" method="POST" action="answer.php" onsubmit="return sendQuestion()">
+                                                        <input type="hidden" name="answerID" value="<?php echo $i; ?>">
+                                                        <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
+                                                        <input type="hidden" name="questionID" value="<?php echo $questionID; ?>">
+                                                        <textarea name="answerBox<?php echo $i;?>" id="answerBox<?php echo $i;?>" class="questionBox" onfocus="openAnswerBox(<?php echo $i;?>)" onblur="closeAnswerBox(<?php echo $i;?>)" 
+                                                            placeholder="Ingrese una respuesta" maxlength="150"></textarea><br>
+                                                        <input type="submit" class="button" name="answerButton<?php echo $i;?>" id="answerButton<?php echo $i;?>" value="Responder" style="display: none;">
+                                                        <a type="" href="javascript:void(0)" id="hideAnswerForm<?php echo $i;?>" class="button" onclick="hideAnswerForm(<?php echo $i;?>)" style="display:none; border-width: 2px; border-style: outset; border-color: buttonface;">Cancelar</a>
+                                                    </form>                            
+                                                </div>
+                                            </div>
+                            <?php                            
+                                        $i= $i + 1;
+                                        }
                                         echo '</div>';
                                     }                                        
                                 }                                                                        

@@ -46,6 +46,9 @@ function showError(option){
             break;
     }
 }
+function form(id){
+    return $('#' + id);
+}
 
 function focus(id){
     $('#' + id).focus();
@@ -254,6 +257,8 @@ function formValidation(option){
     }
 }
 
+//QUESTION BOX
+
 function openQuestionBox(){
     setTimeout("openQuestionBox2()",200);
 }
@@ -270,7 +275,39 @@ function closeQuestionBox2(){
     document.question.questionBox.style.height="6%";
     document.question.questionButton.style.display="none";
 }
+// ANSWER BOX
 
+function openAnswerBox(id){
+    setTimeout("openAnswerBox2("+id+")",200);
+}
+function openAnswerBox2(id){
+    $('#answerBox' + id).css('height', '10%');
+    $('#answerButton' + id).show();
+    show("answerButton" + id);
+}
+
+function closeAnswerBox(id){
+    setTimeout("closeAnswerBox2("+id+")",200);
+}
+
+function closeAnswerBox2(id){
+    $('#answerBox' + id).css('height', '6%');
+    hide("answerButton" + id);
+}
+
+function showAnswerForm(id){
+    show('questionForm' + id);
+    hide('showAnswerForm' + id);
+    show('hideAnswerForm' + id);
+}
+
+function hideAnswerForm(id){
+    hide('questionForm' + id);
+    show('showAnswerForm' + id);
+    hide('hideAnswerForm' + id);
+}
+
+//--------------------------------------------------------------
 function sendQuestion(){
     question= document.question.questionBox.value;
     if(question == null || question.length < 20){

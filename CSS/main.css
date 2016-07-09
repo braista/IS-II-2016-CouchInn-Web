@@ -120,6 +120,17 @@ header img{
 	font-size: 18px;
 	padding: 2px 5px 2px 5px;
     cursor: pointer;
+    display: inline-flex;
+}
+.button{	
+	background-color: rgba(150, 172, 60, 0.92);
+	color: white;
+	text-decoration: none;
+	border-radius: 20px 20px 20px 20px;	
+	font-size: 18px;
+	padding: 2px 5px 2px 5px;
+    cursor: pointer;
+    display: inline-flex;
 }
 
 #button:hover{
@@ -272,7 +283,7 @@ td form{
     margin: 0;
 }
 #sub{
-    margin-left: 2%;
+    margin-left: 1%;
     margin-bottom: 1%;
     overflow: hidden;
 }
@@ -372,6 +383,12 @@ td form{
 	width: 35%;
 }
 
+/*PREGUNTAS Y RESPUESTAS*/
+
+#deleteAnswerButton{
+    float: right;
+}
+
 #questions{
     padding-top: 3%;
     width: 80%;
@@ -404,11 +421,13 @@ td form{
     font-size: 75%;
     font-weight: bold;
     margin: 0;
+    display: inline;
 }
 
 .qtext{
     font-size: 80%;
     margin: 0;
+    text-indent: 3%;
 }
 
 .qdate{
@@ -418,9 +437,18 @@ td form{
 
 #questionItem{
     border: 1px solid grey;
-    background-color: rgba(195, 192, 192, 0.28);
+    background-color: rgba(195, 192, 192, 0.61);
     margin-bottom: 1%;
     text-indent: 1%;
+    padding: 1%;
+}
+
+#answerItem {
+    background-color: rgba(225, 225, 225, 0.72);
+    border: 1px solid grey;
+    padding: 1%;
+    margin-left: 5%;
+    margin-top: 2%;
 }
 
 /*MODIFICAR PERFIL*/
