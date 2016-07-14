@@ -57,6 +57,12 @@ function focus(id){
 function value(id){
     return $('#' + id).val();
 }
+function inputValue(name){
+    return $('input[name='+name+']').val();
+}
+function textareaValue(name){
+    return $('textarea[name='+name+']').val();
+}
 
 function formValidation(option){
     switch(option){
@@ -313,6 +319,15 @@ function sendQuestion(){
     if(question == null || question.length < 20){
         alert("Debe escribir una pregunta con 20 caracteres minimo y 150 como maximo. Pulse aceptar para volver a intentar.");
         document.question.questionBox.focus();
+        return false;
+    } else
+        return true;
+}
+function sendAnswer(id){
+    answer= textareaValue('answerBox'+id);
+    if(answer == null || answer.length < 20){
+        alert("Debe escribir una pregunta con 20 caracteres minimo y 150 como maximo. Pulse aceptar para volver a intentar.");
+        focus('answerBox'+id);
         return false;
     } else
         return true;

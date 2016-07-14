@@ -211,7 +211,7 @@
                                                 <a href="javascript:void(0)" id="showAnswerForm<?php echo $i;?>" class="button" onclick="showAnswerForm(<?php echo $i;?>)">Responder</a>                                                
                                                 <div id="questionForm<?php echo $i;?>" style="display:none">
                                                     <p style="margin: 5px; font-size: 80%;">Responder:</p>
-                                                    <form name="answer<?php echo $i;?>" method="POST" action="answer.php" onsubmit="return sendQuestion()">
+                                                    <form name="answer<?php echo $i;?>" method="POST" action="answer.php" onsubmit="return sendAnswer(<?php echo $i;?>)">
                                                         <input type="hidden" name="answerID" value="<?php echo $i; ?>">
                                                         <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
                                                         <input type="hidden" name="questionID" value="<?php echo $questionID; ?>">
