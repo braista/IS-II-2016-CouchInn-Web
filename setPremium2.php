@@ -7,12 +7,7 @@
         $query= "SELECT * FROM premium";
         $row= mysqli_fetch_array(mysqli_query($link, $query));
         $amount= $row['monto'];
-        $date= getdate();
-        $dd= $date['mday'];
-        $mm= $date['mon'];
-        $yy= $date['year'];
-        $date= "$yy-$mm-$dd";
-        $query= "INSERT INTO pagos (nrotarjeta, fecha, idusuario, monto) VALUES ('$cardn', '$date', '$userid', '$amount')";
+        $query= "INSERT INTO pagos (nrotarjeta, idusuario, monto) VALUES ('$cardn', '$userid', '$amount')";
         $result= mysqli_query($link, $query);
         if($result){
             $SQL = "UPDATE usuarios SET idtipousuario='2' WHERE idusuario='$userid'";

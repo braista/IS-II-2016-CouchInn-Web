@@ -69,7 +69,7 @@
                     <?php                        
                         if($userid == $ownerid){ ?>
                             <div id="myRequests">
-                                <form action="myRequests.php" method="POST">
+                                <form action="myRequests.php" method="GET">
                                     <input type="hidden" name="couchID" value="<?php echo $couchid; ?>">
                                     <input type="submit" id="button" value="Ver reservas">
                                 </form> 
@@ -90,11 +90,11 @@
                             <p>Descripcion:</p>
                         </div>
                         <div id="details2">
-                            <p><?php echo $lname; ?> <?php echo $fname; ?></p>
+                            <a href="userRating.php?id=<?php echo $ownerid;?>"><p><?php echo $lname;?> <?php echo $fname;?> <b>(<?php echo getUserAVG($ownerid);?>)</b></p></a>
                             <p><?php echo $couchRow['lugar']; ?></p>
                             <p><?php echo $couchRow['nombre']; ?></p>
                             <p><?php echo $couchRow['capacidad']; ?></p>
-                            <p><?php echo $couchRow['puntaje']; ?></p>
+                            <p><a href="couchRating.php?id=<?php echo $couchid;?>"><?php echo getCouchAVG($couchid); ?></a></p>
                             <p><?php echo $couchRow['descripcion']; ?></p>
                         </div><br>
                     </div>
@@ -168,7 +168,7 @@
                                         echo'<hr>';
                                         echo '<div id="questionItem">';
                                         echo'<p class="qname">'.$qrow["apellido"].' '.$qrow["nombre"].'</p>';
-                                        if(getUserID() == $qrow["idusuario"]){?>
+                                        if(getUserID() == $qrow["idusuario"] || getUserID() == $ownerid){?>
                                             <div id="deleteAnswerButton">
                                                 <form action="deleteQuestion.php" method="POST" onsubmit="return (confirm('¿Borrar la pregunta?'));">
                                                     <input type="hidden" name="questionID" value="<?php echo $qrow['idpregunta'];?>">

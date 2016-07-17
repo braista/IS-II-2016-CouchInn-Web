@@ -71,9 +71,9 @@
                                 <input type="hidden" name="couchID" value="<?php echo $couchID; ?>">
                                 <input type="hidden" name="userID" value="<?php echo $userID; ?>">
                                                                                                                                                    
-                                <div id="loginSubmit">
+                                <center>
                                     <input type="submit" id="button" value="Confirmar">
-                                </div>
+                                </center>
                             </form>
                         </div>
                     </div>

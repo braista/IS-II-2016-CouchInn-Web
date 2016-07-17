@@ -155,7 +155,7 @@
                                         <input type="text" name="zcode" minlength="4" maxlength="5" placeholder="Su código postal">
                                     </div>
                                 </div>
-                            <input type="submit" id="button" value="Enviar">
+                                <input type="submit" id="button" value="Enviar" style="width: 15%;">
                         </form>
                     </div>
                     <?php 

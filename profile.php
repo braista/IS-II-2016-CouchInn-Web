@@ -32,6 +32,7 @@
                 $result = mysqli_query($link, $SQL);
                 $userRow= mysqli_fetch_array($result);
                 $bdate= date('d/m/Y', strtotime($userRow['fnacimiento']));
+                $userID= getUserID();
             ?>
             <div id="content">
                 <div id="back">
@@ -72,7 +73,7 @@
                         <p><?php echo $userRow['apellido']; ?></p>
                         <p><?php echo $userRow['nombre']; ?></p>
 			<p><?php echo $bdate; ?></p>
-			<p><?php echo $userRow['puntaje']; ?></p>
+            <p><?php echo '<a href="userRating.php?id='.$userID.'">'.getUserAVG($userID).'</a>'; ?></p>
                         <p><?php echo $userRow['telefono']; ?></p>
 			<p><?php echo $userRow['tipo']; ?></p>
                     </div>

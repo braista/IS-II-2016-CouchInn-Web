@@ -21,21 +21,21 @@
 		</header>
 		<div id="contenedor">
 
+			<div id="content"> 
 			<div id="backButton">
-				<a class="fade" href="listado.php">◄ Atrás</a></br>
+				<a class="fade" id="backButton" href="listado.php">◄ Atrás</a>
 			</div>
 
 			<div id="add_tipo">
-				<form class="backend_container" style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="return confirmacionA();">
+				<form style="text-align:left;width: 50%" action="add_tipo.php" method="POST" name="hosp" onsubmit="return confirmacionA();">
 					<span>Nombre: </span>
 					<input type="text" class="texto_biselado" maxlength="18" name="tipohospedaje" id="tipohospedaje" required>
 					<input type="hidden" name="agregar" value="ok_hospedaje">
-					<button id="button" style="margin:10px" type="submit" value="agregar">Agregar</button>
+					<input id="button" type="submit" value="Agregar" style="padding:5px">
 				</form>
-			</div>
-			
+			</div>	
 		<?php
-//Luego, si ya se mandó a agregar un hospedaje
+		//Luego, si ya se mandó a agregar un hospedaje
 		if(isset($_REQUEST['agregar'])and($_REQUEST['agregar'])=='ok_hospedaje'){
 			$tipohospedaje=$_REQUEST['tipohospedaje'];
 			$eliminado=0;
@@ -58,12 +58,13 @@
 					echo '<p> Ya se dispone de un hospedaje de ese mismo tipo, verifique los datos y vuelva a intentarlo <img src="img/error.png" width="15px" height="15px"></p>';
 			}		
 		}		
-		?>		
+		?>
+		</div>	
 	</div>
 	<footer>
-            <?php    
-                show('footer');
-            ?>
-        </footer>
-    </body>
+        <?php    
+    	    show('footer');
+        ?>
+    </footer>
+  </body>
 </html>

@@ -85,12 +85,14 @@
                                         <select name="type" id="type">
                                             <?php
                                                 while ($row = mysqli_fetch_array($result)) {
-                                                    $value= $row['idtipocouch'];
-                                                    $name= $row['nombre'];
-                                                    if($value == $couchRow['idtipocouch'])
-                                                        echo '<option value="'.$value.'" selected>'.$name.'</option>';
-                                                    else
-                                                        echo '<option value="'.$value.'">'.$name.'</option>';
+                                                    if($row['eliminado'] != 1){
+                                                        $value= $row['idtipocouch'];
+                                                        $name= $row['nombre'];
+                                                        if($value == $couchRow['idtipocouch'])
+                                                            echo '<option value="'.$value.'" selected>'.$name.'</option>';
+                                                        else
+                                                            echo '<option value="'.$value.'">'.$name.'</option>';
+                                                    }
                                                 }
                                             ?>
                                         </select>                                        

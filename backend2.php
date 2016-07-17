@@ -46,7 +46,7 @@
                     </div>
                     <div id="backmenu">
                         <div id="backmenuItem">
-                            <a href="listado.php" id="button">Administrar Tipos de couchs</a>
+                            <a id="button" href="listado.php">Administrar Tipos de couchs</a>
                     </div>
                     <div id="backmenuItem">
                         <form action="backend.php" name="ver_ganancias" method="POST">

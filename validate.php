@@ -11,7 +11,7 @@
         $_SESSION['user']= $row['nombre'];
         $_SESSION['userid']= $row['idusuario'];
         setcookie("userid", $row['idusuario'], time() + 60*60*24 );
-        redirectAfter("index.php", 2);
+        redirect("index.php");
     } else 
         redirect("login.php?error");    
 ?>

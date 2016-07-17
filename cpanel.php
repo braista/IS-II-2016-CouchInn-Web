@@ -34,9 +34,15 @@
                     <div id="backmenu">
                         <div id="backmenuItem">
                             <a href="newCouch.php" id="button">Agregar couch</a>
-                        </div>
+                        </div>                        
                         <div id="backmenuItem">
                             <a href="sentRequests.php" id="button">Solicitudes enviadas</a>
+                        </div>
+                        <div id="backmenuItem">
+                            <a href="lastCouchs.php" id="button">Últimos hospedajes</a>
+                        </div>
+                        <div id="backmenuItem">
+                            <a href="lastUsers.php" id="button">Últimos huéspedes</a>
                         </div>
                     </div>
                     <?php

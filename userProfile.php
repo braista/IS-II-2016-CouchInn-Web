@@ -33,6 +33,12 @@
                 $result = mysqli_query($link, $SQL);
                 $userRow= mysqli_fetch_array($result);
                 $bdate= date('d m Y', strtotime($userRow['fnacimiento']));                
+            } else if(count($_GET) != 0){
+                $userID= $_GET['id'];
+                $SQL= "SELECT * FROM usuarios u LEFT JOIN tipousuarios tu ON u.idtipousuario=tu.idtipousuario WHERE idusuario=$userID";
+                $result = mysqli_query($link, $SQL);
+                $userRow= mysqli_fetch_array($result);
+                $bdate= date('d m Y', strtotime($userRow['fnacimiento']));
             }
             ?>
             <div id="content">
@@ -55,7 +61,7 @@
                             <p><?php echo $userRow['apellido']; ?></p>
                             <p><?php echo $userRow['nombre']; ?></p>
                             <p><?php echo $bdate; ?></p>
-                            <p><?php echo $userRow['puntaje']; ?></p>
+                            <a href="userRating.php?id=<?php echo $userID;?>"><p><?php echo getUserAVG($userID); ?></p></a>
                             <p><?php echo $userRow['tipo']; ?></p>
                         </div>
                     </div>

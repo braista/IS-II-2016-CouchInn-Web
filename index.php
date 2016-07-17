@@ -49,27 +49,40 @@
                         $description=$row['description'];
                         $row['tipoH']=$_REQUEST['hosp_id'];
                         $tipo=$row['tipoH'];
-                        //$row['fechaI']=$_REQUEST['fechaI'];
-                        //$fechaI=$row['fechaI'];
-                        //$row['fechaF']=$_REQUEST['fechaF'];
-                        //$fechaF=$row['fechaF'];
+                        $row['fechaI']=$_REQUEST['fechaI'];
+                        $fechaI=$row['fechaI'];
+                        $row['fechaF']=$_REQUEST['fechaF'];
+                        $fechaF=$row['fechaF'];
+                        
                         echo'<a href="index.php" id="button">Volver</a>';
                         echo '<table>
                             <tr>';
                         $str="<td><h4>Filtrado por: </h4></td>";
                         echo $str;
                         if ($name!='0' and $name!='')
-                            echo '<td>Nombre: '.$name.'</td>';
+                            echo '</tr>/<tr><td>Nombre: '.$name.'</td>';
                         if ($place!='0' and $place!='')
-                            echo '<td>Lugar: '.$place.'</td>';
+                            echo '</tr>/<tr><td>Lugar: '.$place.'</td>';
                         if ($capacity!='0' and $capacity!='')
-                            echo '<td>Capacidad: '.$capacity.'</td>';
+                            echo '</tr>/<tr><td>Capacidad: '.$capacity.'</td>';
                         if ($description!='0' and $description!='')
                             echo '</tr>/<tr><td>Descripción: '.$description.'</td>';
                         if ($tipo!='0' and $tipo!=''){
                             $result2= mysqli_query($link, "SELECT * FROM tipocouchs WHERE idtipocouch='$tipo'");
                             $row2=mysqli_fetch_array($result2);
-                            echo '<td>Tipo De Hospedaje: '.$row2['nombre'].'</td>';
+                            echo '</tr>/<tr><td>Tipo De Hospedaje: '.$row2['nombre'].'</td>';
+                        }
+                        if ($fechaI!='' AND $fechaF!=''){
+                            echo '</tr>/<tr><td>Desde: '.$fechaI.'</td>';
+                            echo '<td>Hasta: '.$fechaF.' </td>';
+
+                        }elseif ($fechaI=='' AND $fechaF!='') {
+                            echo '</tr>/<tr><td>Desde: HOY</td>';
+                            echo '<td>Hasta: '.$fechaF.'</td>';
+
+                        }elseif ($fechaI!='' AND $fechaF=='') {
+                            echo '</tr>/<tr><td>Desde: '.$fechaI.'</td>';
+                            echo '<td>Hasta: ---- </td>';
                         }
                         echo '</tr>
                             </table>';

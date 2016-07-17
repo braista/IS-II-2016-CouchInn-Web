@@ -66,6 +66,20 @@ function textareaValue(name){
 
 function formValidation(option){
     switch(option){
+        case "rate":
+            rating= inputValue("rating");
+            comment= textareaValue('comment');
+            if(rating== null || rating == ""){
+                alert("El puntaje es obligatorio y debe ser un valor entre 1 y 5");
+                focus("rating");
+                return false;
+            }else if(comment == null || comment == "" || comment.lenght < 4){
+                alert("El comentario es obligatorio y debe tener al menos 4 caracteres");
+                focus("comment");
+                return false;
+            } else
+                return true;
+        break;
         case "request":
             fdate= value("fdate");
             tdate= value("tdate");
@@ -94,7 +108,7 @@ function formValidation(option){
             }
             else if(parseInt(amount) > parseInt(maxAmount)){
                 alert("La cantidad de personas debe ser menor o igual a la capacidad maxima de la publicación.");
-                focus("maxAmount");
+                focus("amount");
                 return (false);
             }
             return (true);
@@ -260,6 +274,7 @@ function formValidation(option){
                         return true;
                 }
         break;
+        
     }
 }
 

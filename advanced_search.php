@@ -9,7 +9,7 @@
         include_once 'functions.php';
         $link= connect();
         ?>
-        <title>CouchInn - Inicio</title>
+        <title>CouchInn - Busqueda avanzada</title>
     </head>
     <body>
     
@@ -21,11 +21,15 @@
         </header>
         <!-- CONTENEDOR-->
         <div id="contenedor">
-            <div id="backButton">
+            <div id="content">
+                <div id="backButton">
                     <a id="backButton" class="fade" href="index.php">◄ Atrás</a>
-            </div>'
+                </div>
+                <div id="info">
+                    <div id="title">
+                        <p>Busqueda avanzada</p>
+                    </div>
             <div id="formSection">
-            <span class="caja_filtro">
                 <form class="filtro_form,form center" action="index.php" name="advanced_search" method="GET">
                     <div id="formItem">
                         <div class="formLabel">
@@ -79,13 +83,30 @@
                             <textarea name="description" id="description" placeholder="Descripción de la publicación"></textarea>
                         </div>
                     </div>
+                    <div id="formItem">
+                        <div class="formLabel">
+                            <label>Fecha Desde:</label>
+                        </div>
+                        <div class="formInput"> 
+                            <input type="date" min="<?php echo date("Y-m-d");?>" name="fechaI" id="fechaI">
+                        </div>
+                    </div>
+                    <div id="formItem">
+                        <div class="formLabel">
+                            <label>Fecha Hasta:</label>
+                        </div>
+                        <div class="formInput">                            
+                            <input type="date" min="<?php echo date("Y-m-d");?>" name="fechaF" id="fechaF">
+                        </div>
+                    </div>
                     
                 </div>
                 <div id="couchSubmit">
                     <button id="button" type="submit" value="Ver">BUSCAR</button>
                 </div>
             </form>
-            </span>
+                </div>
+            </div>
         </div>
         </div>
         <footer>
