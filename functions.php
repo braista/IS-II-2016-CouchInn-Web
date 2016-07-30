@@ -1,4 +1,14 @@
-<?php 
+<?php
+function checkRequestsDate(){
+    $link= connect();
+    $date= getdate();
+        $dd= $date['mday'];
+        $mm= $date['mon'];
+        $yy= $date['year'];
+        $date= "$yy-$mm-$dd";
+    $query= "UPDATE reservas SET idestado=4 WHERE idestado!=5 AND fecha_fin <= '$date'";
+    $result= mysqli_query($link, $query);
+}
 function getCouchAVG($couchID){
     $link= connect();
     $query= "SELECT AVG(puntaje) FROM `puntajes-couchs` WHERE idcouch='$couchID'";
@@ -355,7 +365,8 @@ function redirectWithAlertAfter($url, $text, $seconds) {
 	
 	function show($option) {
         switch ($option) {
-            case 'header': 
+            case 'header':
+                checkRequestsDate();
                 $user = checkSession();
                 if($user == 'null'){
                         $okauth= false;

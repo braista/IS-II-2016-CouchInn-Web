@@ -9,7 +9,7 @@ if(count($_POST) != 0){
     $query= "INSERT INTO `puntajes-couchs`(`puntaje`, `comentario`, `idusuario`, `idcouch`) VALUES ('$rating', '$comment', '$userID', '$couchID')";
     $result= mysqli_query($link, $query);
     if($result){
-        $query= "UPDATE reservas SET idestado=5 WHERE idcouch='$couchID' AND idusuario='$userID'";
+        $query= "UPDATE reservas SET idestado=5 WHERE idcouch=$couchID AND idusuario=$userID";
         $result= mysqli_query($link, $query);
         redirect("lastCouchs.php");
     }else{

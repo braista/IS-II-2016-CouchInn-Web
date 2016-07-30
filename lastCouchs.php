@@ -59,7 +59,7 @@
                                         $status = $row['idestado'];
                                         echo'<tr class="listItem">';                                        
                                         echo '<td class="item"><a href="show.php?id='.$couchID.'"><img src="img/'.$imgRow["imagen"].'" width="60px" height="60px"></a></td>';
-                                        echo '<td class="item">'.$couchRow["titulo"].'</td>';
+                                        echo '<td class="item"><a href="show.php?id='.$couchID.'">'.$couchRow["titulo"].'</a></td>';
                                         echo '<td class="item">
                                                     <a href="couchRating.php?id='.$couchID.'"><p>'.getCouchAVG($couchID).'</p></a>
                                                 </td>';
