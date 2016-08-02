@@ -75,7 +75,7 @@
                                                 </form>
                                             </td>                                      
                                         <?php    
-                                        } else{ ?>
+                                        } else if ($status == 2){ ?>
                                             <td class="acceptedItem">Aceptada</td>
                                             <td class="item">
                                                 <form action="userProfile.php" method="POST">
@@ -84,6 +84,29 @@
                                                 </form>
                                             </td>                                            
                                         <?php
+                                        }  else if($status == 4){ 
+                                            $query= "SELECT * FROM `puntajes-couchs` WHERE idreserva=$requestID";
+                                            $qresult= mysqli_query($link, $query);
+                                            if(mysqli_num_rows($qresult) == 0){
+                                                ?>
+                                                <td class="acceptedItem"style="background-color: rgba(159, 162, 153, 0.67)">Finalizada</td>
+                                                <td class="item">
+                                                    <form action="userProfile.php" method="POST">
+                                                        <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+                                                        <input type="image" value="Perfil" src="img/profile.png" title="Ver perfil de usuario" width=18px height=18px>
+                                                    </form>
+                                                </td>                                            
+                                            <?php
+                                            }  else{ ?>
+                                                <td class="acceptedItem" style="background-color: rgba(47, 140, 255, 0.67)">Calificada</td>
+                                                <td class="item">
+                                                    <form action="userProfile.php" method="POST">
+                                                        <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+                                                        <input type="image" value="Perfil" src="img/profile.png" title="Ver perfil de usuario" width=18px height=18px>
+                                                    </form>
+                                                </td>                                            
+                                            <?php
+                                            }
                                         }
                                         echo'</tr>';
                                     }                                    

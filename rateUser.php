@@ -28,7 +28,7 @@
 		<div id="contenedor">
             <div id="content"> 
                 <div id="back">
-                    <a id="backButton" class="fade" href="lastCouchs.php">◄ Atrás</a>
+                    <a id="backButton" class="fade" href="lastUsers.php">◄ Atrás</a>
 				</div>
 				<div id="info">
                     <div id="title">
@@ -39,6 +39,7 @@
                         if(count($_POST)!=0){
                             $otherID= $_POST['userID'];
                             $userID= getUserID();
+                            $requestID= $_POST['requestID'];
                         }else{
                             alert("Hubo un problema en el envio de datos");
                             back();
@@ -63,6 +64,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="otherID" value="<?php echo $otherID;?>">
+                            <input type="hidden" name="requestID" value="<?php echo $requestID;?>">
                             <input type="hidden" name="userID" value="<?php echo $userID;?>">
                             <center>
                                 <input type="submit" class="button" value="Calificar">

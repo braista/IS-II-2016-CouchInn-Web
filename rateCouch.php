@@ -38,6 +38,7 @@
                     <?php
                         if(count($_POST)!=0){
                             $couchID= $_POST['couchID'];
+                            $requestID= $_POST['requestID'];
                             $userID= getUserID();
                         }else{
                             alert("Hubo un problema en el envio de datos");
@@ -63,6 +64,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="couchID" value="<?php echo $couchID;?>">
+                            <input type="hidden" name="requestID" value="<?php echo $requestID;?>">
                             <input type="hidden" name="userID" value="<?php echo $userID;?>">
                             <center>
                                 <input type="submit" class="button" value="Calificar">

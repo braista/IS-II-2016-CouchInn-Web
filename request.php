@@ -67,7 +67,7 @@
                                         <input type="number" name="amount" id="amount" required>
                                     </div>
                                 </div>
-                                
+                                <input type="hidden" name="maxAmount" value="<?php echo $maxAmount; ?>">
                                 <input type="hidden" name="couchID" value="<?php echo $couchID; ?>">
                                 <input type="hidden" name="userID" value="<?php echo $userID; ?>">
                                                                                                                                                    

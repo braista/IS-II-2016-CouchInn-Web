@@ -41,25 +41,16 @@
                             </tr>
                             <?php
                                 $userID= getUserID();
-                                $query= "SELECT * FROM reservas WHERE (idestado= 2 OR idestado=4 OR idestado=5) AND idcouch IN(SELECT idcouch FROM couchs WHERE idusuario=$userID)";
+                                $query= "SELECT * FROM reservas WHERE (idestado= 2 OR idestado=4) AND idcouch IN(SELECT idcouch FROM couchs WHERE idusuario=$userID)";
                                 $result= mysqli_query($link, $query);
                                 if(mysqli_num_rows($result)!= 0){
                                     while($row= mysqli_fetch_array($result)){
-                                        $otherID= $row['idusuario'];
-                                        $query= "SELECT * FROM `puntajes-usuarios` WHERE idusuario_puntuador='$userID' AND idusuario_puntuado='$otherID'";
-                                        $result2= mysqli_query($link, $query);
+                                        $otherID= $row['idusuario'];                                        
+                                        $fdate = $row['fecha_inicio'];
+                                        $tdate = $row['fecha_fin'];
+                                        $couchID= $row['idcouch'];                                        
                                         $state= $row['idestado'];
-                                        if(mysqli_num_rows($result2) != 0){
-                                            $ratingRow= mysqli_fetch_array($result2);
-                                            $rating= $ratingRow['puntaje'];
-                                            $ok= true;
-                                            
-                                        }else{
-                                            $ok= false;
-                                        }
-                                        $fdate = date('d/m/Y', strtotime($row['fecha_inicio']));
-                                        $tdate = date('d/m/Y', strtotime($row['fecha_fin']));
-                                        $couchID= $row['idcouch'];
+                                        $requestID= $row['idreserva'];
                                         $query= "SELECT * FROM usuarios WHERE idusuario=$otherID";
                                         $result2= mysqli_query($link, $query);
                                         $userRow= mysqli_fetch_array($result2);
@@ -69,25 +60,31 @@
                                         echo '<td class="item"><a href="show.php?id='.$couchID.'"><img src="img/'.$imgRow["imagen"].'" width="60px" height="60px"></a></td>';
                                         echo '<td class="item"><a href="userProfile.php?id='.$otherID.'">'.getUserName($otherID).'</a></td>';                                        
                                         echo '<td class="item"><a href="userRating.php?id='.$otherID.'"><p>'.getUserAVG($otherID).'</p></a></td>';
-                                        echo '<td class="item">'.$fdate.'</td>';
-                                        echo '<td class="item">'.$tdate.'</td>';
-                                        if($ok == true){?>
-                                            <td class="item"><p><?php echo $rating; ?></p></td>
-                                        <?php
-                                        }else if ($state == 2){?>
+                                        echo '<td class="item">'.date('d/m/Y', strtotime($fdate)).'</td>';
+                                        echo '<td class="item">'.date('d/m/Y', strtotime($tdate)).'</td>';
+                                        if($state == 2){?>
                                             <td class="item">
-                                                <button id="button" onclick="alert('La estadia debe haber finalizado para poder calificar')" style="background-color: grey;">Calificar</button>
+                                                    <button id="button" onclick="alert('La estadia debe haber finalizado para poder calificar')" style="background-color: grey;">Calificar</button>
                                             </td>
                                         <?php
-                                        }else if ($state == 4){
-                                            ?>
-                                            <td class="item">
-                                                <form action="rateUser.php" method="POST">
-                                                    <input type="hidden" name="userID" value="<?php echo $otherID; ?>">
-                                                    <input type="submit" title="Calificar huesped" class="button" value="Calificar">
-                                                </form>
-                                            </td>
+                                        }else{
+                                            $query= "SELECT * FROM `puntajes-usuarios` WHERE idreserva=$requestID";
+                                            $qresult= mysqli_query($link, $query);
+                                            if(mysqli_num_rows($qresult) == 0){
+                                                ?>
+                                                <td class="item">
+                                                    <form action="rateUser.php" method="POST">
+                                                        <input type="hidden" name="userID" value="<?php echo $otherID; ?>">                                                        
+                                                        <input type="hidden" name="requestID" value="<?php echo $requestID; ?>">
+                                                        <input type="submit" title="Calificar huesped" class="button" value="Calificar">
+                                                    </form>
+                                                </td>
+                                                <?php                                            
+                                            } else{
+                                                $ratingRow= mysqli_fetch_array($qresult); ?>
+                                                <td class="item"><?php echo $ratingRow['puntaje']; ?></td>
                                         <?php
+                                            }
                                         }
                                         echo '</tr>';
                                     }

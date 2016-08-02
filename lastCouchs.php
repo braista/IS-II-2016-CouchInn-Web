@@ -42,7 +42,7 @@
                             </tr>
                             <?php
                                 $userID= getUserID();
-                                $SQL = "SELECT * FROM reservas WHERE idusuario = '$userID' AND (idestado='4' OR idestado='5' OR idestado='2') ORDER BY idreserva DESC";
+                                $SQL = "SELECT * FROM reservas WHERE idusuario = '$userID' AND (idestado='4' OR idestado='2') ORDER BY idreserva DESC";
                                 $result = mysqli_query($link, $SQL);
                                 if(mysqli_num_rows($result) != 0){
                                     while ($row = mysqli_fetch_array($result)) { 
@@ -54,8 +54,8 @@
                                         $userID= getOwnerID($couchID);
                                         $requestID= $row['idreserva'];
                                         $amount = $row['cantidad'];
-                                        $fdate = date('d/m/Y', strtotime($row['fecha_inicio']));
-                                        $tdate = date('d/m/Y', strtotime($row['fecha_fin']));
+                                        $fdate = $row['fecha_inicio'];
+                                        $tdate = $row['fecha_fin'];
                                         $status = $row['idestado'];
                                         echo'<tr class="listItem">';                                        
                                         echo '<td class="item"><a href="show.php?id='.$couchID.'"><img src="img/'.$imgRow["imagen"].'" width="60px" height="60px"></a></td>';
@@ -64,32 +64,36 @@
                                                     <a href="couchRating.php?id='.$couchID.'"><p>'.getCouchAVG($couchID).'</p></a>
                                                 </td>';
                                         echo '<td class="item"><a href="userProfile.php?id='.getOwnerID($couchID).'">'.getUserName(getOwnerID($couchID)).'</a></td>';
-                                        echo '<td class="item">'.$fdate.'</td>';
-                                        echo '<td class="item">'.$tdate.'</td>';
+                                        echo '<td class="item">'.date('d/m/Y', strtotime($fdate)).'</td>';
+                                        echo '<td class="item">'.date('d/m/Y', strtotime($tdate)).'</td>';
                                         if($status == 2){?>
                                             <td class="item">
                                                 <button id="button" onclick="alert('La estadia debe haber finalizado para poder calificar')" style="background-color: grey;">Calificar</button>
                                             </td>
                                         <?php
-                                        }else if ($status == 4){?>                                            
-                                            <td class="item">
-                                                <form action="rateCouch.php" method="POST">
-                                                    <input type="hidden" name="couchID" value="<?php echo $couchID; ?>">
-                                                    <input type="submit" title="Calificar hospedaje" class="button" value="Calificar">
-                                                </form>
-                                            </td>                                          
-                                        <?php 
-                                        } else if ($status == 5){
-                                            $userID= getUserID();
-                                            $query= "SELECT * FROM `puntajes-couchs` WHERE idusuario=$userID AND idcouch=$couchID";
-                                            $ratingRow= mysqli_fetch_array(mysqli_query($link, $query));
-                                            $rating= $ratingRow['puntaje'];
-                                            ?>
+                                        }else if ($status == 4){
+                                            $query= "SELECT * FROM `puntajes-couchs` WHERE idreserva=$requestID";
+                                            $qresult= mysqli_query($link, $query);
+                                            if(mysqli_num_rows($qresult) == 0){
+                                                ?>                                            
                                                 <td class="item">
-                                                    <p><?php echo $rating; ?></p>
+                                                    <form action="rateCouch.php" method="POST">
+                                                        <input type="hidden" name="couchID" value="<?php echo $couchID; ?>">
+                                                        <input type="hidden" name="requestID" value="<?php echo $requestID; ?>">
+                                                        <input type="submit" title="Calificar hospedaje" class="button" value="Calificar">
+                                                    </form>
+                                                </td>                                          
+                                            <?php 
+                                            } else {                                                
+                                                $ratingRow= mysqli_fetch_array($qresult);
+                                                $rating= $ratingRow['puntaje'];
+                                                ?>
+                                                    <td class="item">
+                                                        <p><?php echo $rating; ?></p>
+                                                    </td>
                                                 </td>
-                                            </td>
-                                        <?php
+                                            <?php
+                                        }
                                         }
                                         echo'</tr>';
                                     }                                    

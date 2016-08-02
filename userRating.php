@@ -39,12 +39,17 @@
                             if(mysqli_num_rows($result) != 0){
                                 while ($row = mysqli_fetch_array($result)) {
                                     $userID= $row['idusuario_puntuador'];
+                                    $requestID= $row['idreserva'];
                                     ?>
                             <div id="rating">
                                 <hr>
                                 <div id="name" style="width: 100%; text-decoration: underline;">
                                     <?php echo getUserName($userID);
-                                        echo ' <b>('.$row["puntaje"].')</b>';
+                                        echo ' <b>('.$row["puntaje"].') </b>';
+                                        echo 'por ';
+                                        $query= "SELECT * FROM reservas r LEFT JOIN couchs c ON r.idcouch=c.idcouch WHERE idreserva=$requestID ";
+                                        $requestRow= mysqli_fetch_array(mysqli_query($link, $query));
+                                        echo '<a href="show.php?id='.$requestRow["idcouch"].'">'.$requestRow["titulo"].'</a>';
                                     ?>
                                 </div><br>
                                 <div id="comment" style="font-size: 14px; text-indent: 1%;">

@@ -81,10 +81,10 @@ function formValidation(option){
                 return true;
         break;
         case "request":
-            fdate= value("fdate");
-            tdate= value("tdate");
-            amount= value("amount");
-            maxAmount= value("maxAmount");
+            fdate= inputValue("fdate");
+            tdate= inputValue("tdate");
+            amount= inputValue("amount");
+            maxAmount= inputValue("maxAmount");
             today= new Date().toJSON().slice(0,10);
             if(fdate == "" || Date.parse(fdate) < Date.parse(today)){
                 alert("La fecha del campo 'Desde' debe ser una fecha válida.");

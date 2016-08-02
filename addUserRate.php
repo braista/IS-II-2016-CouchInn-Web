@@ -6,7 +6,8 @@ if(count($_POST) != 0){
     $comment= $_POST['comment'];
     $otherID= $_POST['otherID'];
     $userID= $_POST['userID'];
-    $query= "INSERT INTO `puntajes-usuarios`(`puntaje`, `comentario`, `idusuario_puntuador`, `idusuario_puntuado`) VALUES ('$rating', '$comment', '$userID', '$otherID')";
+    $requestID= $_POST['requestID'];
+    $query= "INSERT INTO `puntajes-usuarios`(`puntaje`, `comentario`, `idreserva`, `idusuario_puntuador`, `idusuario_puntuado`) VALUES ('$rating', '$comment', '$requestID', '$userID', '$otherID')";
     $result= mysqli_query($link, $query);
     if($result){
         redirect("lastUsers.php");
